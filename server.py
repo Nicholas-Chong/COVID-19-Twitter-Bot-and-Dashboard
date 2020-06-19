@@ -7,4 +7,4 @@ app.debug = False
 def index():
     return 'Hello World'
 
-app.run()
+app.run(host='0.0.0.0')
