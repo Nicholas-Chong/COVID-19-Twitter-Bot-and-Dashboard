@@ -2,7 +2,7 @@ import tweepy
 import os
 
 mode = 'DEPLOYED'
-if mode =! 'DEPLOYED':
+if mode != 'DEPLOYED':
     import dotenv
     dotenv.load_dotenv()
 
