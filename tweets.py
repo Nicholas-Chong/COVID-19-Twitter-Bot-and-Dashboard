@@ -1,8 +1,10 @@
 import tweepy
-import dotenv
 import os
 
-dotenv.load_dotenv()
+mode = 'DEPLOYED'
+if mode =! 'DEPLOYED':
+    import dotenv
+    dotenv.load_dotenv()
 
 auth = tweepy.OAuthHandler(
     os.getenv('API_KEY'), 
