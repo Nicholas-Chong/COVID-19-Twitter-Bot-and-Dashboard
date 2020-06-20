@@ -1,0 +1,21 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1, h2, h3 {
+    color: rgb(135, 220, 206);
+}
+
+header h1 {
+    padding-top: 10px;
+    text-align: center;
+}
+
+.graph_display_area {
+    padding: 20px;
+}
+
+.graph_display_area > img {
+    display: block;
+    margin: auto;
+}
