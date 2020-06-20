@@ -17,25 +17,14 @@ def main():
 
     query = urllib.request.urlopen(link)
     query = json.loads(query.read())
-    # pprint.pprint(query['result']['records'])
 
     results = query['result']['records']
     num_results = len(results) - 1
 
     date = results[num_results]['Reported Date'][0:10]
-
     new_cases = results[num_results]['Total Cases'] - results[num_results - 1]['Total Cases']
-    print(new_cases)
-
     tests_completed = results[num_results]['Total tests completed in the last day']
-    
     total_cases = results[num_results]['Total Cases'] 
-    # print(total_cases) 
-
-    new_cases_data = [(i['_id'], i['Total Cases']) for i in results]
-    # print(new_cases_data)
-
-    graphs.total_case_chart(new_cases_data)
 
     tweets.daily_update(
         date, 
@@ -43,6 +32,9 @@ def main():
         total_cases,
         tests_completed,
     )
+
+    new_cases_data = [(i['_id'], i['Total Cases']) for i in results]
+    graphs.total_case_chart(new_cases_data)
 
 if __name__ == '__main__':
     main()
