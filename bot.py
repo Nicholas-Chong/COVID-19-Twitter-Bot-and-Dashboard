@@ -9,7 +9,7 @@ in Ontario.
 import urllib.request
 import pprint
 import json
-import leather
+import graphs
 import tweets
 
 def main():
@@ -35,14 +35,7 @@ def main():
     new_cases_data = [(i['_id'], i['Total Cases']) for i in results]
     # print(new_cases_data)
 
-    leather.theme.axis_title_gap=30
-    leather.theme.default_chart_width=1000
-
-    chart = leather.Chart('Total COVID-19 Cases in Ontario')
-    chart.add_line(new_cases_data, stroke_color='#87dcce')
-    chart.add_y_axis(name='Number of Cases')
-    chart.add_x_axis(name='Days Since Jan 26, 2020', ticks=[i for i in range(0, 150, 10)])
-    chart.to_svg('total_cases.svg')
+    graphs.total_case_chart(new_cases_data)
 
     tweets.daily_update(
         date, 
