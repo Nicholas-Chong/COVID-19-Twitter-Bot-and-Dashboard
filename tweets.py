@@ -25,7 +25,7 @@ def daily_update(date, new_cases, total_cases, tests_completed):
 New Cases: {new_cases}
 Tests Completed: {tests_completed}
 Total Cases: {total_cases}
-#COVID19Toronto #COVID19ON #COVID19Ontario #COVIDOntario #CoronavirusOntario #COVID19CA #CovidOntario #StopTheSpread
+#COVID19Ontario #Coronavirus
 https://t.co/VWtEPaz0Ip
     '''
     )
