@@ -18,4 +18,11 @@ header h1 {
 .graph_display_area > img {
     display: block;
     margin: auto;
+    width: 80%;
+}
+
+@media (max-width: 600px) {
+    .graph_display_area > img {
+        width: 90%;
+    }
 }
