@@ -26,6 +26,7 @@ New Cases: {new_cases}
 Tests Completed: {tests_completed}
 Total Cases: {total_cases}
 #COVID19Toronto #Coronavirus
+Like and retweet to inform others!
 https://t.co/VWtEPaz0Ip
     '''
     )
