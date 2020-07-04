@@ -7,11 +7,9 @@ Created:     2020-06-23 (YYYY/MM/DD)
 ----------------------------------------------------------------------------'''
 
 from peewee import *
+import os
 
-# Create the sqlite database file (called database.db)
-# If the file already exists, no new file will be created and the variable "db"
-#   will be a database object
-db = SqliteDatabase('database.db')
+db = PostgresqlDatabase(os.getenv('DATABASE_URL'))
 
 # Create a data model for a Daily_Report
 class Daily_Report(Model):
