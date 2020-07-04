@@ -12,6 +12,9 @@ import os
 
 # db = PostgresqlDatabase(os.getenv('DATABASE_URL'))
 
+# Open a connection to the database
+db = connect(os.getenv('DATABASE_URL'))
+
 # Create a data model for a Daily_Report
 class Daily_Report(Model):
     date = DateField(null=True)
@@ -25,8 +28,6 @@ class Daily_Report(Model):
         # This data model "belongs" to the database db
         database = db
 
-# Open a connection to the database
-db = connect(os.getenv('DATABASE_URL'))
 
 if __name__ == '__main__':
     # Create the tables
