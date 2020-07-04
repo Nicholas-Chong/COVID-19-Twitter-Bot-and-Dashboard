@@ -19,7 +19,7 @@ def main():
     # Connect to the Ontario Government API
     link = 'https://data.ontario.ca/api/3/action/datastore_search?resource_id=ed270bb8-340b-41f9-a7c6-e8ef587e6d11&limit=1000'
     query = urllib.request.urlopen(link)
-    query = json.loads(query.read()).
+    query = json.loads(query.read())
 
     # Get data from API call
     for count, report in enumerate(query['result']['records']):
