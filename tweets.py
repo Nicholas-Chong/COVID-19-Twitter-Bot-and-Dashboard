@@ -1,3 +1,12 @@
+'''----------------------------------------------------------------------------
+Name:        Twitter Bot Tweets Config (tweets.py)
+Purpose:     To setup a connection with the Twitter API, as well as create a
+             function that sends out the tweet.
+
+Author:      Nicholas Chong
+Created:     2020-06-19 (YYYY/MM/DD)
+----------------------------------------------------------------------------'''
+
 import tweepy
 import os
 

@@ -1,3 +1,12 @@
+'''----------------------------------------------------------------------------
+Name:        Ontario Coronavirus Dashboard (dashboard.py)
+Purpose:     To display coronavirus data in a visually pleasing and effective
+             manner.
+
+Author:      Nicholas Chong
+Created:     2020-07-03 (YYYY/MM/DD)
+----------------------------------------------------------------------------'''
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html

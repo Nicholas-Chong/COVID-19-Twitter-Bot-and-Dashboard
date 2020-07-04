@@ -1,10 +1,12 @@
-'''
-This script links to the Status of COVID-19 cases in Ontario API provided by 
-the Ontario government.
+'''----------------------------------------------------------------------------
+Name:        Twitter Bot (bot.py)
+Purpose:     A script that sends out a tweet containing general coronavirus 
+             statistics from the Government of Ontario. Script is called 
+             through heroku scheduler at 11:00AM every day.
 
-The API provides Compiled daily reported data on COVID-19 testing and outcomes 
-in Ontario.
-'''
+Author:      Nicholas Chong
+Created:     2020-06-19 (YYYY/MM/DD)
+----------------------------------------------------------------------------'''
 
 import urllib.request
 import pprint
