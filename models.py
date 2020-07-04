@@ -7,9 +7,10 @@ Created:     2020-06-23 (YYYY/MM/DD)
 ----------------------------------------------------------------------------'''
 
 from peewee import *
+from playhouse.db_url import connect
 import os
 
-db = PostgresqlDatabase(os.getenv('DATABASE_URL'))
+# db = PostgresqlDatabase(os.getenv('DATABASE_URL'))
 
 # Create a data model for a Daily_Report
 class Daily_Report(Model):
@@ -25,7 +26,7 @@ class Daily_Report(Model):
         database = db
 
 # Open a connection to the database
-db.connect()
+db = connect(os.getenv('DATABASE_URL'))
 
 if __name__ == '__main__':
     # Create the tables
