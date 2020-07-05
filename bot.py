@@ -33,9 +33,6 @@ def main():
         total_cases,
         tests_completed,
     )
-
-    new_cases_data = [(i['_id'], i['Total Cases']) for i in results]
-    graphs.total_case_chart(new_cases_data)
-
+    
 if __name__ == '__main__':
     main()
