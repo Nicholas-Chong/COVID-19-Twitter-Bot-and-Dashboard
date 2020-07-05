@@ -20,6 +20,7 @@ server = app.server
 app.title = 'Ontario Coronavirus Summary'
 
 data = Daily_Report.select().dicts()
+print(data[-1])
 df = pd.DataFrame({
     'Date' : [i['date'] for i in data],
     'New Cases' : [i['net_new_cases'] for i in data],
