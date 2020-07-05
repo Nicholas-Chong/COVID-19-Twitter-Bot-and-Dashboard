@@ -11,7 +11,6 @@ Created:     2020-06-19 (YYYY/MM/DD)
 import urllib.request
 import pprint
 import json
-import graphs
 import tweets
 
 def main():
