@@ -14,13 +14,16 @@ import plotly.express as px
 import pandas as pd
 from models import *
 
+# Create Dash app instance
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] # Dash CSS
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 server = app.server
 app.title = 'Ontario Coronavirus Summary'
 
+# Query data and return as dictionary
 data = Daily_Report.select().dicts()
-print(data[-1])
+
+# Create dataframe
 df = pd.DataFrame({
     'Date' : [i['date'] for i in data],
     'New Cases' : [i['net_new_cases'] for i in data],
@@ -37,6 +40,7 @@ fig2 = px.line(data_frame=df, x='Date', y='Total Cases', title='Total Cases')
 fig3 = px.line(data_frame=df, x='Date', y='New Deaths', title='Daily New Deaths')
 fig4 = px.line(data_frame=df, x='Date', y='Tests Completed', title='Daily Tests Completed')
 
+# Create layout (html generation using dash_html_components)
 app.layout = html.Div(
     [
         html.Div (
