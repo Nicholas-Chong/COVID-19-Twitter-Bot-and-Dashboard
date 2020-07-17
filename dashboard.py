@@ -40,6 +40,16 @@ fig2 = px.line(data_frame=df, x='Date', y='Total Cases', title='Total Cases')
 fig3 = px.line(data_frame=df, x='Date', y='New Deaths', title='Daily New Deaths')
 fig4 = px.line(data_frame=df, x='Date', y='Tests Completed', title='Daily Tests Completed')
 
+def day_over_day(today, yesterday):
+    difference = today - yesterday
+    if difference >= 0:
+        return [f'+{str(difference)} increase vs yesterday', 'orangered']
+    else:
+        return [f'{str(difference)} decrease vs yesterday', 'limegreen']
+
+dod_new_cases = day_over_day(df.iloc[-1]['New Cases'], df.iloc[-2]['New Cases'])
+dod_new_deaths = day_over_day(df.iloc[-1]['New Deaths'], df.iloc[-2]['New Deaths'])
+
 # Create layout (html generation using dash_html_components)
 app.layout = html.Div(
     [
@@ -74,6 +84,13 @@ app.layout = html.Div(
                                 
                                 html.P(
                                     f'New Cases ({df.iloc[-1]["Date"]})'
+                                ),
+
+                                html.P(
+                                    dod_new_cases[0],
+                                    style={
+                                        'color' : dod_new_cases[1]
+                                    }
                                 )
                             ],
 
@@ -89,6 +106,13 @@ app.layout = html.Div(
                                 
                                 html.P(
                                     f'New Deaths ({df.iloc[-1]["Date"]})'
+                                ),
+
+                                html.P(
+                                    dod_new_deaths[0],
+                                    style={
+                                        'color' : dod_new_deaths[1]
+                                    }
                                 )
                             ],
 
