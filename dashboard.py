@@ -42,7 +42,7 @@ fig4 = px.line(data_frame=df, x='Date', y='Tests Completed', title='Daily Tests 
 
 def day_over_day(today, yesterday):
     difference = today - yesterday
-    if difference >= 0:
+    if difference > 0:
         return [f'+{str(difference)} increase vs yesterday', 'orangered']
     else:
         return [f'{str(difference)} decrease vs yesterday', 'limegreen']
