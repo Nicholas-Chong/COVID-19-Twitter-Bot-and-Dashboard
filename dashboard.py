@@ -41,7 +41,7 @@ fig1 = px.line(data_frame=df, x='Date', y=['New Cases', '7 Day Average'], title=
 fig2 = px.line(data_frame=df, x='Date', y='Total Cases', title='Total Cases')
 fig3 = px.line(data_frame=df, x='Date', y='New Deaths', title='Daily New Deaths')
 fig4 = px.line(data_frame=df, x='Date', y='Tests Completed', title='Daily Tests Completed')
-fig5 = px.line(data_frame=df, x='Date', y='Percent Positive', title='Percent Positive')
+fig5 = px.line(data_frame=df, x='Date', y='Percent Positive', title='Daily Percent Positive')
 
 def day_over_day(today, yesterday):
     difference = today - yesterday
