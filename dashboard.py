@@ -186,18 +186,32 @@ app.layout = html.Div(
 
         html.Div(
             [
-                dcc.Graph(figure=fig4),
+                html.Div(
+                    [
+                        dcc.Graph(figure=fig4),
+                    ],
+
+                    className='pretty_container',
+                    style={
+                        'width' : '50%',
+                    }
+                ),
+
+                html.Div(
+                    [
+                        dcc.Graph(figure=fig5),
+                    ],
+
+                    className='pretty_container',
+                    style={
+                        'width' : '50%',
+                    }
+                ),
             ],
 
-            className='pretty_container'
-        ),
-
-        html.Div(
-            [
-                dcc.Graph(figure=fig5),
-            ],
-
-            className='pretty_container'
+            style={
+                'display' : 'flex',
+            }
         ),
 
         html.Div(
