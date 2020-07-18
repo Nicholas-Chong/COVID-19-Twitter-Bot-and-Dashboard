@@ -33,12 +33,15 @@ df = pd.DataFrame({
     'Tests Completed' : [i['net_new_tests'] for i in data],
 })
 df['7 Day Average'] = df['New Cases'].rolling(window=7).mean()
+df['Percent Positive'] = round((df['New Cases'] / df['Tests Completed']) * 100, 2)
+print(df)
 
 # Create Figures
 fig1 = px.line(data_frame=df, x='Date', y=['New Cases', '7 Day Average'], title='Daily New Cases')
 fig2 = px.line(data_frame=df, x='Date', y='Total Cases', title='Total Cases')
 fig3 = px.line(data_frame=df, x='Date', y='New Deaths', title='Daily New Deaths')
 fig4 = px.line(data_frame=df, x='Date', y='Tests Completed', title='Daily Tests Completed')
+fig5 = px.line(data_frame=df, x='Date', y='Percent Positive', title='Percent Positive')
 
 def day_over_day(today, yesterday):
     difference = today - yesterday
@@ -184,6 +187,14 @@ app.layout = html.Div(
         html.Div(
             [
                 dcc.Graph(figure=fig4),
+            ],
+
+            className='pretty_container'
+        ),
+
+        html.Div(
+            [
+                dcc.Graph(figure=fig5),
             ],
 
             className='pretty_container'
