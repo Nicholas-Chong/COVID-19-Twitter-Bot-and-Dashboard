@@ -10,7 +10,7 @@ Created:     2020-07-21 (YYYY/MM/DD)
 
 import plotly.express as px
 import pandas as pd
-from models import *
+from .models import *
 
 # Function to get day over day variances; pass on the corresponding color
 def day_over_day(today, yesterday):
