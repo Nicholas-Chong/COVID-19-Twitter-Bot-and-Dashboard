@@ -106,6 +106,7 @@ body {
   padding: 15px;
   position: relative;
   box-shadow: 2px 2px 2px lightgrey;
+  flex: 1;
 }
 
 #right-column {
@@ -113,24 +114,8 @@ body {
   flex-direction: column;
 }
 
-#wells {
-  flex: 1;
-}
-
-#gas {
-  flex: 1;
-}
-
 #aggregate_data {
   align-items: center;
-}
-
-#oil {
-  flex: 1;
-}
-
-#water {
-  flex: 1;
 }
 
 #tripleContainer {

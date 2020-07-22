@@ -70,7 +70,6 @@ app.layout = html.Div(
                                 )
                             ],
 
-                            id='wells',
                             className='mini_container',
                         ),
 
@@ -92,7 +91,6 @@ app.layout = html.Div(
                                 )
                             ],
 
-                            id='gas',
                             className='mini_container',
                         ),
 
@@ -107,7 +105,6 @@ app.layout = html.Div(
                                 )
                             ],
 
-                            id='oil',
                             className='mini_container',
                         ),
 
@@ -122,7 +119,6 @@ app.layout = html.Div(
                                 )
                             ],
 
-                            id='water',
                             className='mini_container',
                         ),
                     ],
