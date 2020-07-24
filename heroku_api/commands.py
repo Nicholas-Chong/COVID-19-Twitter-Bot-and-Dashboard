@@ -1,3 +1,12 @@
+'''----------------------------------------------------------------------------
+Name:        Heroku API Commands (commands.py)
+Purpose:     To setup a connection with the Heroku API and denote functions 
+             that carry out various tasks.
+
+Author:      Nicholas Chong
+Created:     2020-06-24 (YYYY/MM/DD)
+----------------------------------------------------------------------------'''
+
 import heroku3
 import os 
 
