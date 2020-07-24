@@ -19,5 +19,5 @@ Follow @OntarioCovid19
 ## Built With
 Python, Flask, Dash, Tweepy, Peewee, Postgresql, Heroku, Government of Ontario API, Twitter API
 
-## Sources
+## Data Sources
 [https://data.ontario.ca/organization/cabinet-office](https://data.ontario.ca/organization/cabinet-office)
