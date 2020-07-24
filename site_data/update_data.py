@@ -11,7 +11,7 @@ Created:     2020-06-23 (YYYY/MM/DD)
 import urllib.request
 import pprint
 import json
-from models import *
+from .models import *
 import datetime
 
 def main():
