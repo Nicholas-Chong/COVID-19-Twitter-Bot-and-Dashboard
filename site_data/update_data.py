@@ -14,7 +14,7 @@ import json
 from .models import *
 import datetime
 
-def main():
+def update():
     # Get today's date -> Convert it into a string
     date = str(datetime.datetime.now().date())
     print(date)
@@ -68,4 +68,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    update()
