@@ -20,6 +20,10 @@ app = dash.Dash(
     external_stylesheets=external_stylesheets,
     meta_tags=[
         {
+            'property': 'twitter:card',
+            'content': 'summary_large_image',
+        },
+        {
             'property': 'og:image',
             'prefix': 'og: http://ogp.me/ns#',
             'content': '/assets/dashboard_img.png',
