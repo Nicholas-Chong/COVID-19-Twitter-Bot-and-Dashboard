@@ -24,6 +24,18 @@ app = dash.Dash(
             'content': 'summary_large_image',
         },
         {
+            'property': 'twitter:title',
+            'content': 'Ontario Coronavirus Summary',
+        },
+        {
+            'property': 'twitter:description',
+            'content': 'Interactive Ontario coronavirus dashboard.',
+        },
+        {
+            'property': 'twitter:image',
+            'content': '/assets/dashboard_img.png',
+        },
+        {
             'property': 'og:image',
             'prefix': 'og: http://ogp.me/ns#',
             'content': '/assets/dashboard_img.png',
