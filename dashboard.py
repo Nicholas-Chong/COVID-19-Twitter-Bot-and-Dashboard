@@ -33,7 +33,7 @@ app = dash.Dash(
         },
         {
             'property': 'twitter:image',
-            'content': 'https://covid-19.ontario.ca/themes/custom/ds_theme/c19-assets/images/meta-og-image-EN.jpeg',
+            'content': '/assets/dashboard_img_twitter.png',
         },
         {
             'property': 'og:image',
