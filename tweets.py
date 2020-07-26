@@ -10,11 +10,6 @@ Created:     2020-06-19 (YYYY/MM/DD)
 import tweepy
 import os
 
-mode = 'DEPLOYED'
-if mode != 'DEPLOYED':
-    import dotenv
-    dotenv.load_dotenv()
-
 auth = tweepy.OAuthHandler(
     os.getenv('API_KEY'), 
     os.getenv('API_SECRET_KEY'),
