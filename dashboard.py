@@ -33,7 +33,7 @@ app = dash.Dash(
         },
         {
             'property': 'twitter:image',
-            'content': '/assets/dashboard_img_twitter.png',
+            'content': '/assets/dashboard_img_twitter.jpg',
         },
         {
             'property': 'og:image',
