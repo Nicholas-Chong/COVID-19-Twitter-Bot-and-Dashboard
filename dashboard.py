@@ -24,6 +24,11 @@ app = dash.Dash(
             'prefix': 'og: http://ogp.me/ns#',
             'content': '/assets/dashboard_img.png',
         },
+        {
+            'property': 'og:url',
+            'prefix': 'og: http://ogp.me/ns#',
+            'content': 'http://tinyurl.com/coronavirus-graphs',
+        },
     ],
 )
 server = app.server
