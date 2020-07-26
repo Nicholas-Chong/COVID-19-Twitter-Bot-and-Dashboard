@@ -31,10 +31,10 @@ app = dash.Dash(
             'property': 'twitter:description',
             'content': 'Interactive Ontario coronavirus dashboard.',
         },
-        # {
-        #     'property': 'twitter:image',
-        #     'content': '/assets/dashboard_img.png',
-        # },
+        {
+            'property': 'twitter:image',
+            'content': '/assets/dashboard_img_twitter.png',
+        },
         {
             'property': 'og:image',
             'prefix': 'og: http://ogp.me/ns#',
