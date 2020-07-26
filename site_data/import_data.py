@@ -1,9 +1,8 @@
 '''----------------------------------------------------------------------------
 Name:        Import Data Command (import_data.py)
 Purpose:     To import data into the database. SHOULD ONLY BE USED ON A NEWLY
-             CREATED SQLITE DATABASE FILE. Script queries all data from the 
-             Government of Ontario's API, then saves to the local database 
-             (database.db)
+             CREATED DATABASE. Script queries all data from the Government of 
+             Ontario's API, then saves to the database.
 
 Author:      Nicholas Chong
 Created:     2020-06-23 (YYYY/MM/DD)
@@ -54,7 +53,7 @@ def main():
             net_new_deaths=net_new_deaths,
             total_cases=total_cases,
             total_deaths=total_deaths,
-            )
+        )
 
 if __name__ == '__main__':
     main()
