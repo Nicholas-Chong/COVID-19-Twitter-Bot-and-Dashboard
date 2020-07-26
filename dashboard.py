@@ -15,7 +15,17 @@ from site_data.get_data import *
 
 # Create Dash app instance
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] # Dash CSS
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash(
+    __name__, 
+    external_stylesheets=external_stylesheets,
+    meta_tags=[
+        {
+            'property': 'og:image',
+            'prefix': 'og: http://ogp.me/ns#',
+            'content': '/assets/dashboard_img.png',
+        },
+    ],
+)
 server = app.server
 app.title = 'Ontario Coronavirus Summary'
 
