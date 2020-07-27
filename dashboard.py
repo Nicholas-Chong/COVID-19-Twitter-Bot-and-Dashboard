@@ -33,7 +33,7 @@ app = dash.Dash(
         },
         {
             'property': 'twitter:image',
-            'content': 'http://assets/dashboard_img_twitter.jpg',
+            'content': 'http://mighty-gorge-03520.herokuapp.com/assets/dashboard_img_twitter.jpg',
         },
         {
             'property': 'og:image',
