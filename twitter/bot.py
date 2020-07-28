@@ -11,7 +11,7 @@ Created:     2020-06-19 (YYYY/MM/DD)
 import urllib.request
 import pprint
 import json
-import tweets
+from . import tweets 
 
 def main():
     link = 'https://data.ontario.ca/api/3/action/datastore_search?resource_id=ed270bb8-340b-41f9-a7c6-e8ef587e6d11&limit=1000'
@@ -37,6 +37,6 @@ def main():
         tests_completed,
     )
 
-
+    print(True)
 if __name__ == '__main__':
     main()
