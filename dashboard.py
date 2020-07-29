@@ -231,8 +231,9 @@ app.layout = html.Div(
                         html.A(
                             'Check us out on GitHub',
                             href='https://github.com/Nicholas-Chong/COVID-19-Twitter-Bot-and-Dashboard',
+                            target='_blank'
                         ),
-                        
+
                     style={
                         'font-size' : 'x-small',
                         'textAlign' : 'center',
