@@ -225,6 +225,18 @@ app.layout = html.Div(
                         'font-size' : 'x-small',
                         'textAlign' : 'center',
                     }
+                ),
+
+                html.P(
+                        html.A(
+                            'Check us out on GitHub',
+                            href='https://github.com/Nicholas-Chong/COVID-19-Twitter-Bot-and-Dashboard',
+                        ),
+                        
+                    style={
+                        'font-size' : 'x-small',
+                        'textAlign' : 'center',
+                    }
                 )
             ]
         )
