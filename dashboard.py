@@ -61,13 +61,16 @@ fig5 = px.line(data_frame=df, x='Date', y='Percent Positive', title='Daily Perce
 
 
 def unixTimeMillis(dt):
-    ''' Convert datetime to unix timestamp '''
+    ''' 
+    Convert datetime to unix timestamp. Needed because the range slider does
+    not support Datetime values (only supports integers)
+    '''
     return int(time.mktime(dt.timetuple()))
 
 
 def getMarks(start, end, Nth=20):
-    ''' Returns the marks for labeling. 
-        Every Nth value will be used.
+    ''' 
+    Returns the marks for labeling. Every Nth value will be used.
     '''
 
     result = {}
@@ -283,13 +286,15 @@ app.layout = html.Div(
     ]
 )
 
+
 @app.callback(
     dash.dependencies.Output('output-container-range-slider', 'children'),
     [dash.dependencies.Input('my-range-slider', 'value')])
 def update_output(value):
-    print(datetime.fromtimestamp(value[0]).date())
+    # Convert from unixtimestamp -> date
     start = datetime.fromtimestamp(value[0]).date()
     end = datetime.fromtimestamp(value[-1]).date()
+
     return f'You have selected dates {start} to {end}'
     
 
