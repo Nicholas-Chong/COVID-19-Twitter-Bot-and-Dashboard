@@ -12,6 +12,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
 from site_data.get_data import *
+import time
+from datetime import datetime
 
 # Create Dash app instance
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] # Dash CSS
@@ -56,6 +58,26 @@ fig2 = px.line(data_frame=df, x='Date', y='Total Cases', title='Total Cases')
 fig3 = px.line(data_frame=df, x='Date', y='New Deaths', title='Daily New Deaths')
 fig4 = px.line(data_frame=df, x='Date', y='Tests Completed', title='Daily Tests Completed')
 fig5 = px.line(data_frame=df, x='Date', y='Percent Positive', title='Daily Percent Positive')
+
+
+def unixTimeMillis(dt):
+    ''' Convert datetime to unix timestamp '''
+    return int(time.mktime(dt.timetuple()))
+
+
+def getMarks(start, end, Nth=20):
+    ''' Returns the marks for labeling. 
+        Every Nth value will be used.
+    '''
+
+    result = {}
+    for i, date in enumerate(df['Date']):
+        if(i%Nth == 1):
+            # Append value to dict
+            result[int(unixTimeMillis(date))] = str(date)
+
+    return result
+
 
 # Create layout (html generation using dash_html_components)
 app.layout = html.Div(
@@ -158,7 +180,24 @@ app.layout = html.Div(
                     className='container-display',
                 )
             ]
-        ),  
+        ),
+        html.Div(
+            [
+                dcc.RangeSlider(
+                    id='my-range-slider',
+                    min=unixTimeMillis(df['Date'].min()),
+                    max=unixTimeMillis(df['Date'].max()),
+                    value=[
+                        unixTimeMillis(df['Date'].min()),
+                        unixTimeMillis(df['Date'].max()),
+                    ],
+                    marks=getMarks(df['Date'].min(), df['Date'].max()),
+                    updatemode='drag',
+                ),
+
+                html.Div(id='output-container-range-slider')
+            ]
+        ),
 
         html.Div(
             [
@@ -243,6 +282,16 @@ app.layout = html.Div(
         )
     ]
 )
+
+@app.callback(
+    dash.dependencies.Output('output-container-range-slider', 'children'),
+    [dash.dependencies.Input('my-range-slider', 'value')])
+def update_output(value):
+    print(datetime.fromtimestamp(value[0]).date())
+    start = datetime.fromtimestamp(value[0]).date()
+    end = datetime.fromtimestamp(value[-1]).date()
+    return f'You have selected dates {start} to {end}'
+    
 
 if __name__ == '__main__':
     app.run_server(debug=True)
