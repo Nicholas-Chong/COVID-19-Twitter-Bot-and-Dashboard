@@ -14,6 +14,7 @@ import plotly.express as px
 from site_data.get_data import *
 import time
 from datetime import datetime
+from dash.dependencies import ClientsideFunction, Input, Output
 
 # Create Dash app instance
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] # Dash CSS
@@ -198,7 +199,7 @@ app.layout = html.Div(
                     updatemode='drag',
                 ),
 
-                html.Div(id='output-container-range-slider')
+                html.Div('foo', id='output-container-range-slider')
             ]
         ),
 
@@ -287,16 +288,15 @@ app.layout = html.Div(
 )
 
 
-@app.callback(
-    dash.dependencies.Output('output-container-range-slider', 'children'),
-    [dash.dependencies.Input('my-range-slider', 'value')])
-def update_output(value):
-    # Convert from unixtimestamp -> date
-    start = datetime.fromtimestamp(value[0]).date()
-    end = datetime.fromtimestamp(value[-1]).date()
+app.clientside_callback(
+    ClientsideFunction(
+        namespace='clientside',
+        function_name='update_daterange',
+    ),
+    Output('output-container-range-slider', 'children'),
+    [Input('my-range-slider', 'value')]
+)
 
-    return f'You have selected dates {start} to {end}'
-    
 
 if __name__ == '__main__':
     app.run_server(debug=True)
