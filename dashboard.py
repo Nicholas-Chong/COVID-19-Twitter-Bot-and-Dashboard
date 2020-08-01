@@ -335,6 +335,7 @@ app.clientside_callback(
     [
         Input('datepicker', 'start_date'),
         Input('datepicker', 'end_date'),
+        Input('reset_graphs_button', 'n_clicks'),
     ]
 )
 
