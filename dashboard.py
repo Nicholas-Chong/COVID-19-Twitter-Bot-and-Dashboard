@@ -17,7 +17,7 @@ from datetime import datetime, timedelta
 from dash.dependencies import ClientsideFunction, Input, Output
 
 # Create Dash app instance
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css'] # Dash CSS
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', 'https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'] # Dash CSS
 app = dash.Dash(
     __name__, 
     external_stylesheets=external_stylesheets,
@@ -282,19 +282,42 @@ app.layout = html.Div(
                     }
                 ),
 
-                html.P(
+                html.Div(
+                    [
                         html.A(
-                            'Check us out on GitHub',
+                            html.I(
+                                className='bx bxl-github bx-tada',
+                                style={
+                                    'font-size': 'x-large'
+                                }
+                            ),
                             href='https://github.com/Nicholas-Chong/COVID-19-Twitter-Bot-and-Dashboard',
-                            target='_blank'
+                            target='_blank',
                         ),
 
+                        html.A(
+                            html.I(
+                                className='bx bxl-twitter bx-tada',
+                                style={
+                                    'font-size': 'x-large',
+                                    'padding-left': '10px'
+                                }
+                            ),
+                            href='https://twitter.com/OntarioCovid19',
+                            target='_blank',
+                        ),
+                    ],
                     style={
-                        'font-size' : 'x-small',
-                        'textAlign' : 'center',
+                        'display': 'flex',
+                        'text-align': 'center',
+                        'justify-content': 'center',
                     }
-                )
-            ]
+                ),
+            ],
+            style={
+                'display': 'flex',
+                'flex-direction': 'column',
+            }
         ),
     ]
 )
