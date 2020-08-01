@@ -139,9 +139,13 @@ body {
   padding: 0px;
 }
 
+.DateRangePicker {
+  width: 300px;
+}
+
 #datepicker_output {
   align-items: center;
-  padding-left: 30px;
+  padding-left: 10px;
 }
 
 #datepicker_container {
