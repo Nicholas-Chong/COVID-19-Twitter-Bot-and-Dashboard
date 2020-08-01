@@ -132,3 +132,14 @@ body {
   pointer-events: all;
   transform: translate(30px, 349px);
 }
+
+.DateRangePickerInput {
+  border: 0px;
+  background: none;
+  padding: 0px;
+}
+
+#datepicker_output {
+  align-items: center;
+  padding-left: 30px;
+}

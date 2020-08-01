@@ -185,30 +185,51 @@ app.layout = html.Div(
                 )
             ]
         ),
-        html.Div(
-            [
-                dcc.RangeSlider(
-                    id='my-range-slider',
-                    min=unixTimeMillis(df['Date'].min()),
-                    max=unixTimeMillis(df['Date'].max()),
-                    value=[
-                        unixTimeMillis(df['Date'].min()),
-                        unixTimeMillis(df['Date'].max()),
-                    ],
-                    marks=getMarks(df['Date'].min(), df['Date'].max()),
-                    updatemode='drag',
-                ),
 
-                html.Div('foo', id='output-container-range-slider')
-            ]
+        dcc.Store(
+            id='clientside_datastore',
+            data=[]
         ),
 
         html.Div(
             [
-                dcc.Graph(figure=fig1),
+                html.Div(
+                    [
+                        dcc.DatePickerRange(
+                            id='datepicker',
+                            display_format='YYYY-MM-DD',
+                            min_date_allowed=df['Date'].min(),
+                            max_date_allowed=df['Date'].max(),
+                            start_date=df['Date'].min(),
+                            end_date=df['Date'].max(),
+                            updatemode='bothdates',
+                            initial_visible_month=df['Date'].max()
+                        ),
+
+                        html.H6(
+                            'foo',
+                            id='datepicker_output'
+                        ),
+                    ],
+                    className='mini_container',
+                    style={
+                        'display': 'flex',
+                        'align-items': 'center',
+                    }
+                ),
+            ],
+            className='container-display',
+            style={
+                'display': 'flex',
+            }
+        ),
+
+        html.Div(
+            [
+                dcc.Graph(figure=fig1, id='graph1'),
             ],
 
-            className='pretty_container'
+            className='pretty_container',
         ),
 
         html.Div(
@@ -293,10 +314,26 @@ app.clientside_callback(
         namespace='clientside',
         function_name='update_daterange',
     ),
-    Output('output-container-range-slider', 'children'),
-    [Input('my-range-slider', 'value')]
+    [
+        Output('datepicker_output', 'children'), 
+        Output('clientside_datastore', 'data'),
+    ],
+    [
+        Input('datepicker', 'start_date'),
+        Input('datepicker', 'end_date'),
+    ]
 )
 
+@app.callback(
+    [
+        Output('graph1', 'figure'), 
+    ],
+    [Input('clientside_datastore', 'data')])
+def update_graphs(xrange):
+    newdf = df
+    newdf = newdf[newdf['Date']==datetime.date(xrange['start'])]
+    print(newdf)
+    # newfig = px.line(data_frame=df, x='Date', y=['New Cases', '7 Day Average'], title='Daily New Cases')
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True, host='0.0.0.0')
