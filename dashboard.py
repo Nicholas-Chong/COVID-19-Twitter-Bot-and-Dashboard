@@ -346,6 +346,8 @@ app.clientside_callback(
         Output('graph3', 'figure'), 
         Output('graph4', 'figure'), 
         Output('graph5', 'figure'), 
+        Output('datepicker', 'start_date'),
+        Output('datepicker', 'end_date'),
     ],
     [Input('clientside_datastore', 'data')]
 )
@@ -354,7 +356,6 @@ def update_graphs(xrange):
     Updates graphs for a particular xrange by returning new figures
     '''
     newdf = df
-
     start = datetime.strptime(xrange['start'], "%Y-%m-%d").date()
     end = datetime.strptime(xrange['end'], "%Y-%m-%d").date()
 
@@ -380,7 +381,7 @@ def update_graphs(xrange):
     newfig4.update_layout(transition_duration=500)
     newfig5.update_layout(transition_duration=500)
 
-    return [newfig1, newfig2, newfig3, newfig4, newfig5]
+    return [newfig1, newfig2, newfig3, newfig4, newfig5, start, end]
 
 
 if __name__ == '__main__':
