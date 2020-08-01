@@ -60,29 +60,6 @@ fig3 = px.line(data_frame=df, x='Date', y='New Deaths', title='Daily New Deaths'
 fig4 = px.line(data_frame=df, x='Date', y='Tests Completed', title='Daily Tests Completed')
 fig5 = px.line(data_frame=df, x='Date', y='Percent Positive', title='Daily Percent Positive')
 
-
-def unixTimeMillis(dt):
-    ''' 
-    Convert datetime to unix timestamp. Needed because the range slider does
-    not support Datetime values (only supports integers)
-    '''
-    return int(time.mktime(dt.timetuple()))
-
-
-def getMarks(start, end, Nth=20):
-    ''' 
-    Returns the marks for labeling. Every Nth value will be used.
-    '''
-
-    result = {}
-    for i, date in enumerate(df['Date']):
-        if(i%Nth == 1):
-            # Append value to dict
-            result[int(unixTimeMillis(date))] = str(date)
-
-    return result
-
-
 # Create layout (html generation using dash_html_components)
 app.layout = html.Div(
     [
