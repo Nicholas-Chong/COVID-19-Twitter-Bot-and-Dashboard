@@ -150,3 +150,8 @@ body {
   position: -webkit-sticky;
   top: 0px;
 }
+
+#reset_graphs_button:hover {
+  transition: all 0.5s ease;
+  background-color: rgb(38, 230, 255);
+}

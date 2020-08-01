@@ -210,6 +210,18 @@ app.layout = html.Div(
                             'foo',
                             id='datepicker_output'
                         ),
+
+                        html.Div(
+                            [
+                                html.Button(
+                                    'Reset',
+                                    id='reset_graphs_button'
+                                )
+                            ],
+                            style={
+                                'margin-left': 'auto',
+                            }
+                        )
                     ],
                     className='mini_container',
                     style={
