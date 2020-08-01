@@ -358,14 +358,21 @@ def update_graphs(xrange):
     start = datetime.strptime(xrange['start'], "%Y-%m-%d").date()
     end = datetime.strptime(xrange['end'], "%Y-%m-%d").date()
 
-    newdf = newdf[start <= newdf['Date']]
-    newdf = newdf[newdf['Date'] <= end]
+    if start == newdf['Date'].min() and end == newdf['Date'].max():
+        newfig1 = fig1
+        newfig2 = fig2
+        newfig3 = fig3
+        newfig4 = fig4
+        newfig5 = fig5
+    else:
+        newdf = newdf[start <= newdf['Date']]
+        newdf = newdf[newdf['Date'] <= end]
 
-    newfig1 = px.line(data_frame=newdf, x='Date', y=['New Cases', '7 Day Average'], title='Daily New Cases')
-    newfig2 = px.line(data_frame=newdf, x='Date', y='Total Cases', title='Total Cases')
-    newfig3 = px.line(data_frame=newdf, x='Date', y='New Deaths', title='Daily New Deaths')
-    newfig4 = px.line(data_frame=newdf, x='Date', y='Tests Completed', title='Daily Tests Completed')
-    newfig5 = px.line(data_frame=newdf, x='Date', y='Percent Positive', title='Daily Percent Positive')
+        newfig1 = px.line(data_frame=newdf, x='Date', y=['New Cases', '7 Day Average'], title='Daily New Cases')
+        newfig2 = px.line(data_frame=newdf, x='Date', y='Total Cases', title='Total Cases')
+        newfig3 = px.line(data_frame=newdf, x='Date', y='New Deaths', title='Daily New Deaths')
+        newfig4 = px.line(data_frame=newdf, x='Date', y='Tests Completed', title='Daily Tests Completed')
+        newfig5 = px.line(data_frame=newdf, x='Date', y='Percent Positive', title='Daily Percent Positive')
 
     newfig1.update_layout(transition_duration=500)
     newfig2.update_layout(transition_duration=500)
@@ -378,4 +385,3 @@ def update_graphs(xrange):
 
 if __name__ == '__main__':
     app.run_server(debug=True, host='0.0.0.0')
-    
