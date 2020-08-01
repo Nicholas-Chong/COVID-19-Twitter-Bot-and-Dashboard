@@ -143,3 +143,10 @@ body {
   align-items: center;
   padding-left: 30px;
 }
+
+#datepicker_container {
+  z-index: 1;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0px;
+}

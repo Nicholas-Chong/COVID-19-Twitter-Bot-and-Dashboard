@@ -13,7 +13,7 @@ import dash_html_components as html
 import plotly.express as px
 from site_data.get_data import *
 import time
-from datetime import datetime
+from datetime import datetime, timedelta
 from dash.dependencies import ClientsideFunction, Input, Output
 
 # Create Dash app instance
@@ -199,7 +199,7 @@ app.layout = html.Div(
                             id='datepicker',
                             display_format='YYYY-MM-DD',
                             min_date_allowed=df['Date'].min(),
-                            max_date_allowed=df['Date'].max(),
+                            max_date_allowed=df['Date'].max()+timedelta(days=1),
                             start_date=df['Date'].min(),
                             end_date=df['Date'].max(),
                             updatemode='bothdates',
@@ -218,6 +218,7 @@ app.layout = html.Div(
                     }
                 ),
             ],
+            id='datepicker_container',
             className='container-display',
             style={
                 'display': 'flex',
@@ -331,9 +332,19 @@ app.clientside_callback(
     [Input('clientside_datastore', 'data')])
 def update_graphs(xrange):
     newdf = df
-    newdf = newdf[newdf['Date']==datetime.date(xrange['start'])]
+
+    start = datetime.strptime(xrange['start'], "%Y-%m-%d").date()
+    end = datetime.strptime(xrange['end'], "%Y-%m-%d").date()
+
+    newdf = newdf[start <= newdf['Date']]
+    newdf = newdf[newdf['Date'] <= end]
     print(newdf)
-    # newfig = px.line(data_frame=df, x='Date', y=['New Cases', '7 Day Average'], title='Daily New Cases')
+
+    newfig = px.line(data_frame=newdf, x='Date', y=['New Cases', '7 Day Average'], title='Daily New Cases')
+
+    newfig.update_layout(transition_duration=500)
+    return [newfig]
+
 
 if __name__ == '__main__':
     app.run_server(debug=True, host='0.0.0.0')
