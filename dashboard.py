@@ -215,7 +215,8 @@ app.layout = html.Div(
                             [
                                 html.Button(
                                     'Reset',
-                                    id='reset_graphs_button'
+                                    id='reset_graphs_button',
+                                    n_clicks=0
                                 )
                             ],
                             style={
@@ -317,7 +318,7 @@ app.layout = html.Div(
                     }
                 )
             ]
-        )
+        ),
     ]
 )
 
@@ -345,7 +346,8 @@ app.clientside_callback(
         Output('graph4', 'figure'), 
         Output('graph5', 'figure'), 
     ],
-    [Input('clientside_datastore', 'data')])
+    [Input('clientside_datastore', 'data')]
+)
 def update_graphs(xrange):
     newdf = df
 
