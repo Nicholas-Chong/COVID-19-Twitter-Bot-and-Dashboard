@@ -355,7 +355,7 @@ def update_graphs(xrange):
     newfig4.update_layout(transition_duration=500)
     newfig5.update_layout(transition_duration=500)
 
-    return [newfig1, newfig2, newfig3, newfig4, newfig5]
+    return [newfig1, newfig2, newfig3, newfig4, newfig5] #foo
 
 
 if __name__ == '__main__':
