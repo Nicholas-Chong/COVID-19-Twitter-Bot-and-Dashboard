@@ -132,3 +132,34 @@ body {
   pointer-events: all;
   transform: translate(30px, 349px);
 }
+
+.DateRangePickerInput {
+  border: 0px;
+  background: none;
+  padding: 0px;
+}
+
+.DateRangePicker {
+  width: 285px;
+}
+
+.DateInput_input {
+  text-align: center;
+}
+
+#datepicker_output {
+  align-items: center;
+  padding-left: 10px;
+}
+
+#datepicker_container {
+  z-index: 1;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0px;
+}
+
+#reset_graphs_button:hover {
+  transition: all 0.5s ease;
+  background-color: rgb(38, 230, 255);
+}
