@@ -235,7 +235,7 @@ app.layout = html.Div(
 
         html.Div(
             [
-                dcc.Graph(figure=fig2),
+                dcc.Graph(figure=fig2, id='graph2'),
             ],
 
             className='pretty_container'
@@ -243,7 +243,7 @@ app.layout = html.Div(
         
         html.Div(
             [
-                dcc.Graph(figure=fig3),
+                dcc.Graph(figure=fig3, id='graph3'),
             ],
 
             className='pretty_container'
@@ -253,7 +253,7 @@ app.layout = html.Div(
             [
                 html.Div(
                     [
-                        dcc.Graph(figure=fig4),
+                        dcc.Graph(figure=fig4, id='graph4'),
                     ],
 
                     className='pretty_container',
@@ -264,7 +264,7 @@ app.layout = html.Div(
 
                 html.Div(
                     [
-                        dcc.Graph(figure=fig5),
+                        dcc.Graph(figure=fig5, id='graph5'),
                     ],
 
                     className='pretty_container',
@@ -328,6 +328,10 @@ app.clientside_callback(
 @app.callback(
     [
         Output('graph1', 'figure'), 
+        Output('graph2', 'figure'), 
+        Output('graph3', 'figure'), 
+        Output('graph4', 'figure'), 
+        Output('graph5', 'figure'), 
     ],
     [Input('clientside_datastore', 'data')])
 def update_graphs(xrange):
@@ -338,12 +342,20 @@ def update_graphs(xrange):
 
     newdf = newdf[start <= newdf['Date']]
     newdf = newdf[newdf['Date'] <= end]
-    print(newdf)
 
-    newfig = px.line(data_frame=newdf, x='Date', y=['New Cases', '7 Day Average'], title='Daily New Cases')
+    newfig1 = px.line(data_frame=newdf, x='Date', y=['New Cases', '7 Day Average'], title='Daily New Cases')
+    newfig2 = px.line(data_frame=newdf, x='Date', y='Total Cases', title='Total Cases')
+    newfig3 = px.line(data_frame=newdf, x='Date', y='New Deaths', title='Daily New Deaths')
+    newfig4 = px.line(data_frame=newdf, x='Date', y='Tests Completed', title='Daily Tests Completed')
+    newfig5 = px.line(data_frame=newdf, x='Date', y='Percent Positive', title='Daily Percent Positive')
 
-    newfig.update_layout(transition_duration=500)
-    return [newfig]
+    newfig1.update_layout(transition_duration=500)
+    newfig2.update_layout(transition_duration=500)
+    newfig3.update_layout(transition_duration=500)
+    newfig4.update_layout(transition_duration=500)
+    newfig5.update_layout(transition_duration=500)
+
+    return [newfig1, newfig2, newfig3, newfig4, newfig5]
 
 
 if __name__ == '__main__':
