@@ -350,6 +350,9 @@ app.clientside_callback(
     [Input('clientside_datastore', 'data')]
 )
 def update_graphs(xrange):
+    '''
+    Updates graphs for a particular xrange by returning new figures
+    '''
     newdf = df
 
     start = datetime.strptime(xrange['start'], "%Y-%m-%d").date()
@@ -370,8 +373,9 @@ def update_graphs(xrange):
     newfig4.update_layout(transition_duration=500)
     newfig5.update_layout(transition_duration=500)
 
-    return [newfig1, newfig2, newfig3, newfig4, newfig5] #foo
+    return [newfig1, newfig2, newfig3, newfig4, newfig5]
 
 
 if __name__ == '__main__':
     app.run_server(debug=True, host='0.0.0.0')
+    

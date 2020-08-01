@@ -1,8 +1,10 @@
 window.dash_clientside = Object.assign({}, window.dash_clientside, {
     clientside: {
         update_daterange: function(start, end) {
-            console.log(dash_clientside.callback_context.triggered[0])
-            console.log(start, end)
+            /*
+            Updates the message and stores the range data all on the client
+            side.
+            */
 
             let triggered = dash_clientside.callback_context.triggered[0]
             
