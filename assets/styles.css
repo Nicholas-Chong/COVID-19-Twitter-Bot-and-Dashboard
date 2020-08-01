@@ -140,7 +140,11 @@ body {
 }
 
 .DateRangePicker {
-  width: 300px;
+  width: 285px;
+}
+
+.DateInput_input {
+  text-align: center;
 }
 
 #datepicker_output {
