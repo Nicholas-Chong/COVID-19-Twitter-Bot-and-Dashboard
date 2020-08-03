@@ -60,6 +60,9 @@ fig3 = px.line(data_frame=df, x='Date', y='New Deaths', title='Daily New Deaths'
 fig4 = px.line(data_frame=df, x='Date', y='Tests Completed', title='Daily Tests Completed')
 fig5 = px.line(data_frame=df, x='Date', y='Percent Positive', title='Daily Percent Positive')
 
+figs_list = [fig1, fig2, fig3, fig4, fig5]
+[i.update_layout(yaxis=dict(fixedrange=True)) for i in figs_list]
+
 # Create layout (html generation using dash_html_components)
 app.layout = html.Div(
     [
@@ -217,7 +220,7 @@ app.layout = html.Div(
 
         html.Div(
             [
-                dcc.Graph(figure=fig1, id='graph1'),
+                dcc.Graph(figure=fig1, id='graph1', animate=True),
             ],
 
             className='pretty_container',
@@ -355,31 +358,24 @@ def update_graphs(xrange):
     '''
     Updates graphs for a particular xrange by returning new figures
     '''
-    newdf = df
-    start = datetime.strptime(xrange['start'], "%Y-%m-%d").date()
-    end = datetime.strptime(xrange['end'], "%Y-%m-%d").date()
 
-    if start == newdf['Date'].min() and end == newdf['Date'].max():
-        newfig1 = fig1
-        newfig2 = fig2
-        newfig3 = fig3
-        newfig4 = fig4
-        newfig5 = fig5
-    else:
-        newdf = newdf[start <= newdf['Date']]
-        newdf = newdf[newdf['Date'] <= end]
+    # Extract start and end dates (as strings) from xrange
+    start = xrange['start']
+    end = xrange['end']
 
-        newfig1 = px.line(data_frame=newdf, x='Date', y=['New Cases', '7 Day Average'], title='Daily New Cases')
-        newfig2 = px.line(data_frame=newdf, x='Date', y='Total Cases', title='Total Cases')
-        newfig3 = px.line(data_frame=newdf, x='Date', y='New Deaths', title='Daily New Deaths')
-        newfig4 = px.line(data_frame=newdf, x='Date', y='Tests Completed', title='Daily Tests Completed')
-        newfig5 = px.line(data_frame=newdf, x='Date', y='Percent Positive', title='Daily Percent Positive')
+    # Copy figs that were created at start 
+    newfig1 = fig1
+    newfig2 = fig2
+    newfig3 = fig3
+    newfig4 = fig4
+    newfig5 = fig5
 
-    newfig1.update_layout(transition_duration=500)
-    newfig2.update_layout(transition_duration=500)
-    newfig3.update_layout(transition_duration=500)
-    newfig4.update_layout(transition_duration=500)
-    newfig5.update_layout(transition_duration=500)
+    # Update newfigs layouts with new xrange (start, end)
+    newfig1.update_layout(transition_duration=500, xaxis_range=(start, end))
+    newfig2.update_layout(transition_duration=500, xaxis_range=(start, end))
+    newfig3.update_layout(transition_duration=500, xaxis_range=(start, end))
+    newfig4.update_layout(transition_duration=500, xaxis_range=(start, end))
+    newfig5.update_layout(transition_duration=500, xaxis_range=(start, end))
 
     return [newfig1, newfig2, newfig3, newfig4, newfig5, start, end]
 
