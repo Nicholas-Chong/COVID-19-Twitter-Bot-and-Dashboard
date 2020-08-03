@@ -369,13 +369,10 @@ def update_graphs(xrange):
     newfig3 = fig3
     newfig4 = fig4
     newfig5 = fig5
+    newfigs = [newfig1, newfig2, newfig3, newfig4, newfig5]
 
     # Update newfigs layouts with new xrange (start, end)
-    newfig1.update_layout(transition_duration=500, xaxis_range=(start, end))
-    newfig2.update_layout(transition_duration=500, xaxis_range=(start, end))
-    newfig3.update_layout(transition_duration=500, xaxis_range=(start, end))
-    newfig4.update_layout(transition_duration=500, xaxis_range=(start, end))
-    newfig5.update_layout(transition_duration=500, xaxis_range=(start, end))
+    [i.update_layout(transition_duration=500, xaxis_range=(start, end)) for i in newfigs]
 
     return [newfig1, newfig2, newfig3, newfig4, newfig5, start, end]
 
