@@ -57,11 +57,24 @@ server = app.server
 app.title = 'Ontario Coronavirus Summary'
 
 # Create Figures
-fig1 = px.line(data_frame=df, x='Date', y=['New Cases', '7 Day Average'], title='Daily New Cases')
-fig2 = px.line(data_frame=df, x='Date', y='Total Cases', title='Total Cases')
-fig3 = px.line(data_frame=df, x='Date', y='New Deaths', title='Daily New Deaths')
-fig4 = px.line(data_frame=df, x='Date', y='Tests Completed', title='Daily Tests Completed')
-fig5 = px.line(data_frame=df, x='Date', y='Percent Positive', title='Daily Percent Positive')
+fig1 = px.line(
+    data_frame=df, x='Date', y=['New Cases', '7 Day Average'], 
+    title='Daily New Cases'
+)
+fig2 = px.line(
+    data_frame=df, x='Date', y='Total Cases', title='Total Cases'
+)
+fig3 = px.line(
+    data_frame=df, x='Date', y='New Deaths', title='Daily New Deaths'
+)
+fig4 = px.line(
+    data_frame=df, x='Date', y='Tests Completed', 
+    title='Daily Tests Completed'
+)
+fig5 = px.line(
+    data_frame=df, x='Date', y='Percent Positive', 
+    title='Daily Percent Positive'
+)
 
 figs_list = [fig1, fig2, fig3, fig4, fig5]
 [i.update_layout(yaxis=dict(fixedrange=True)) for i in figs_list]
