@@ -17,7 +17,10 @@ from datetime import datetime, timedelta
 from dash.dependencies import ClientsideFunction, Input, Output
 
 # Create Dash app instance
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css', 'https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css'] # Dash CSS
+external_stylesheets = [
+    'https://codepen.io/chriddyp/pen/bWLwgP.css',           # Dash CSS
+    'https://unpkg.com/boxicons@2.0.5/css/boxicons.min.css' # Icon pack
+]
 app = dash.Dash(
     __name__, 
     external_stylesheets=external_stylesheets,
@@ -372,7 +375,8 @@ def update_graphs(xrange):
     newfigs = [newfig1, newfig2, newfig3, newfig4, newfig5]
 
     # Update newfigs layouts with new xrange (start, end)
-    [i.update_layout(transition_duration=500, xaxis_range=(start, end)) for i in newfigs]
+    [i.update_layout(transition_duration=500, xaxis_range=(start, end)) 
+    for i in newfigs]
 
     return [newfig1, newfig2, newfig3, newfig4, newfig5, start, end]
 
