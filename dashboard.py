@@ -168,7 +168,7 @@ app.layout = html.Div(
 
         dcc.Store(
             id='clientside_datastore',
-            data=[]
+            data={}
         ),
 
         html.Div(
