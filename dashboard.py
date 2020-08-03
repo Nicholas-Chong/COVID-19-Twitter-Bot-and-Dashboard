@@ -124,6 +124,7 @@ app.layout = html.Div(
                             ],
 
                             className='mini_container',
+                            id='box1',
                         ),
 
                         html.Div(
@@ -145,6 +146,7 @@ app.layout = html.Div(
                             ],
 
                             className='mini_container',
+                            id='box2'
                         ),
 
                         html.Div(
@@ -159,6 +161,7 @@ app.layout = html.Div(
                             ],
 
                             className='mini_container',
+                            id='box3'
                         ),
 
                         html.Div(
@@ -173,6 +176,7 @@ app.layout = html.Div(
                             ],
 
                             className='mini_container',
+                            id='box4'
                         ),
                     ],
 
