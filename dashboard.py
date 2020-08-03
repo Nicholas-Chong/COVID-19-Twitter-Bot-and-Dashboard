@@ -39,7 +39,7 @@ app = dash.Dash(
         },
         {
             'property': 'twitter:image',
-            'content': 'http://mighty-gorge-03520.herokuapp.com/assets/dashboard_img_twitter.jpg',
+            'content': 'http://www.ontariocovid-19.com/assets/dashboard_img_twitter.jpg',
         },
         {
             'property': 'og:image',
