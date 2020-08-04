@@ -16,7 +16,7 @@ import datetime
 
 def update():
     # Get today's date -> Convert it into a string
-    date = str(datetime.datetime.now().date())
+    date = str(Daily_Report.select().order_by(Daily_Report.id.desc()).get().date+datetime.timedelta(days=1))
     print(date)
 
     # Access Ontario Government coronavirus API; Search by today's date
