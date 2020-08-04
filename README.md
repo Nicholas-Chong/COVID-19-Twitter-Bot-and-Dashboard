@@ -10,6 +10,9 @@ Dashboard utilizes the Plotly Dash library to create and present visualizations.
 ![](readme_imgs/dashboard_img.png)
 
 ## Twitter Bot
+
+[![Twitter](https://img.shields.io/twitter/follow/andlukyane?label=Follow)](https://twitter.com/OntarioCovid19)
+
 The bot queries data from the Government of Ontario's coronavirus API, formats the data, and sends a tweet via the Twitter API.
 
 Daily updates occur at approximately 11:00AM EDT (UTC -4).
