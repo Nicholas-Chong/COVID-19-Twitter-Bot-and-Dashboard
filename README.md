@@ -11,7 +11,8 @@ Dashboard utilizes the Plotly Dash library to create and present visualizations.
 
 ## Twitter Bot
 
-[![Twitter](https://img.shields.io/twitter/follow/andlukyane?label=Follow)](https://twitter.com/OntarioCovid19)
+[![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40cloudposse)](https://twitter.com/OntarioCovid19)
+
 
 The bot queries data from the Government of Ontario's coronavirus API, formats the data, and sends a tweet via the Twitter API.
 
