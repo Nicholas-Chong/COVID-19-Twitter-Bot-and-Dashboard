@@ -37,7 +37,7 @@ def update():
     pprint.pprint(report)
 
     # Get required data, format and store in variables
-    date = datetime.datetime.strptime(report['Reported Date'][0:10], "%Y-%m-%d").date() # Convert datetime string into date object
+    date = datetime.datetime.strptime(report['Reported Date'][0:10], "%Y-%m-%d").date()
     net_new_tests = report['Total tests completed in the last day']
     total_cases = report['Total Cases']
     total_deaths = report['Deaths']
