@@ -240,7 +240,7 @@ app.layout = html.Div(
 
         html.Div(
             [
-                dcc.Graph(figure=fig1, id='graph1', animate=True),
+                dcc.Graph(figure=fig1, id='graph1'),
             ],
 
             className='pretty_container',
@@ -380,20 +380,35 @@ def update_graphs(xrange):
     '''
 
     # Extract start and end dates (as strings) from xrange
-    start = xrange['start']
-    end = xrange['end']
+    start = datetime.strptime(xrange['start'], "%Y-%m-%d").date()
+    end = datetime.strptime(xrange['end'], "%Y-%m-%d").date()
 
-    # Copy figs that were created at start 
-    newfig1 = fig1
-    newfig2 = fig2
-    newfig3 = fig3
-    newfig4 = fig4
-    newfig5 = fig5
+    newdf = df.copy()
+    newdf = newdf[(newdf['Date'] >= start) & (newdf['Date'] <= end)]
+
+    # Create new figs
+    newfig1 = px.line(
+        data_frame=newdf, x='Date', y=['New Cases', '7 Day Average'], 
+        title='Daily New Cases'
+    )
+    newfig2 = px.line(
+        data_frame=newdf, x='Date', y='Total Cases', title='Total Cases'
+    )
+    newfig3 = px.line(
+        data_frame=newdf, x='Date', y='New Deaths', title='Daily New Deaths'
+    )
+    newfig4 = px.line(
+        data_frame=newdf, x='Date', y='Tests Completed', 
+        title='Daily Tests Completed'
+    )
+    newfig5 = px.line(
+        data_frame=newdf, x='Date', y='Percent Positive', 
+        title='Daily Percent Positive'
+    )
     newfigs = [newfig1, newfig2, newfig3, newfig4, newfig5]
 
     # Update newfigs layouts with new xrange (start, end)
-    [i.update_layout(transition_duration=500, xaxis_range=(start, end)) 
-    for i in newfigs]
+    [i.update_layout(transition_duration=500) for i in newfigs]
 
     return [newfig1, newfig2, newfig3, newfig4, newfig5, start, end]
 
