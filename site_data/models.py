@@ -23,6 +23,7 @@ class Daily_Report(Model):
     net_new_deaths = IntegerField(null=True)
     total_cases = IntegerField(null=True)
     total_deaths  = IntegerField(null=True)
+    total_resolved = IntegerField(null=True)
 
     class Meta:
         # This data model "belongs" to the database db
