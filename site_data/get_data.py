@@ -31,6 +31,7 @@ df = pd.DataFrame({
     'New Deaths' : [i['net_new_deaths'] for i in data],
     'Total Deaths' : [i['total_deaths'] for i in data],
     'Tests Completed' : [i['net_new_tests'] for i in data],
+    'Total Recovered' : [i['total_resolved'] for i in data],
 })
 
 # Determine 7 day rolling average
