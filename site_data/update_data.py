@@ -41,6 +41,7 @@ def update():
     net_new_tests = report['Total tests completed in the last day']
     total_cases = report['Total Cases']
     total_deaths = report['Deaths']
+    total_recovered = report['Resolved']
 
     # Query the last row in the database
     past_day = Daily_Report.select().order_by(Daily_Report.id.desc()).get()
@@ -64,6 +65,7 @@ def update():
         net_new_deaths=net_new_deaths,
         total_cases=total_cases,
         total_deaths=total_deaths,
+        total_resolved=total_recovered,
     )
 
 
