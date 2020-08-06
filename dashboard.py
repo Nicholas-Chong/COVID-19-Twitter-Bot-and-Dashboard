@@ -11,6 +11,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import plotly.express as px
+import plotly.graph_objects as go
 from site_data.get_data import *
 import time
 from datetime import datetime, timedelta
@@ -75,8 +76,16 @@ fig5 = px.line(
     data_frame=df, x='Date', y='Percent Positive', 
     title='Daily Percent Positive'
 )
+total_recovered = df.at[len(df)-1, 'Total Recovered'],
+total_deaths = df.at[len(df)-1, 'Total Deaths'],
+total_active = df.at[len(df)-1, 'Total Cases'] - total_recovered - total_deaths
+fig6 = px.pie(
+    names=['Recovered', 'Deceased', 'Active'],
+    values=[total_recovered, total_deaths, total_active], 
+    title=f'Total Case Summary [{str(df["Date"].max())}]'
+)
 
-figs_list = [fig1, fig2, fig3, fig4, fig5]
+figs_list = [fig1, fig2, fig3, fig4, fig5, fig6]
 [i.update_layout(yaxis=dict(fixedrange=True)) for i in figs_list]
 
 # Create layout (html generation using dash_html_components)
@@ -248,10 +257,32 @@ app.layout = html.Div(
 
         html.Div(
             [
-                dcc.Graph(figure=fig2, id='graph2'),
+                html.Div(
+                    [
+                        dcc.Graph(figure=fig2, id='graph2'),
+                    ],
+
+                    className='pretty_container',
+                    style={
+                        'width' : '50%',
+                    }
+                ),
+
+                html.Div(
+                    [
+                        dcc.Graph(figure=fig6, id='graph6'),
+                    ],
+
+                    className='pretty_container',
+                    style={
+                        'width' : '50%',
+                    }
+                ),
             ],
 
-            className='pretty_container'
+            style={
+                'display' : 'flex',
+            }
         ),
         
         html.Div(
