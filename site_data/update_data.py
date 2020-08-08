@@ -72,11 +72,11 @@ def update():
 def regional_update():
     link = 'https://data.ontario.ca/api/3/action/datastore_search?resource_id=455fd63b-603d-4608-8216-7d8647f43350&limit=1000000'
 
-    date = str(Daily_Report.select().order_by(Daily_Report.id.desc()).get().date)
+    date = str(Daily_Report.select().order_by(Daily_Report.id.desc()).get().date-datetime.timedelta(days=1))
     query = urllib.request.urlopen(link)
     query = json.loads(query.read())
     query = query['result']['records']
-    query = list(filter(lambda x: x['Case_Reported_Date'] == date+'T00:00:00', query))
+    # query = list(filter(lambda x: x['Case_Reported_Date'] == date+'T00:00:00', query))
 
     if len(query) == 0:
         return 
@@ -123,11 +123,8 @@ def regional_update():
 
     for i in phus_dict:
         Daily_Regional_Report.create(
-            date = datetime.datetime.strptime('2020-08-06', "%Y-%m-%d").date(),
+            date = datetime.datetime.strptime(date, "%Y-%m-%d").date(),
             reporting_phu = i,
-            new_cases = phus_dict[i],
+            total_cases = phus_dict[i],
         )
         
-
-if __name__ == '__main__':
-    update()

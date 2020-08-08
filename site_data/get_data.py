@@ -46,6 +46,6 @@ dod_new_cases = day_over_day(df.iloc[-1]['New Cases'], df.iloc[-2]['New Cases'])
 dod_new_deaths = day_over_day(df.iloc[-1]['New Deaths'], df.iloc[-2]['New Deaths'])
 
 # Query regional data and return as dict
-regional_data = Daily_Regional_Report.select().where(
-    Daily_Regional_Report.date == df['Date'].max()-timedelta(days=1)).dicts()
-df_regional = pd.DataFrame(regional_data).sort_values(by=['new_cases'])
+regional_data = Daily_Regional_Report.select().where(Daily_Regional_Report.date == df['Date'].max()-timedelta(days=1)).dicts()
+df_regional = pd.DataFrame(regional_data).sort_values(by=['total_cases'])
+print(sum(df_regional['total_cases']))

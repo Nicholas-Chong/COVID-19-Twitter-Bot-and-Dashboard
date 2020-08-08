@@ -86,12 +86,12 @@ fig6 = px.pie(
 )
 fig7 = px.bar(
     data_frame=df_regional,
-    x='new_cases',
+    x='total_cases',
     y='reporting_phu',
     orientation='h',
-    title=f'Regional Case Breakdown [{str(df["Date"].max()-timedelta(days=1))}]',
+    title=f'Regional Case Breakdown [{str(df["Date"].max())}]',
     labels={
-        'new_cases': 'New Cases',
+        'total_cases': 'Total Cases',
         'reporting_phu': 'Reporting PHU'
     }
 )
@@ -261,6 +261,14 @@ app.layout = html.Div(
         html.Div(
             [
                 dcc.Graph(figure=fig1, id='graph1'),
+            ],
+
+            className='pretty_container',
+        ),
+
+        html.Div(
+            [
+                dcc.Graph(figure=fig7, id='graph8'),
             ],
 
             className='pretty_container',
