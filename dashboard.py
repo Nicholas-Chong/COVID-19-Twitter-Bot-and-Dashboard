@@ -89,7 +89,7 @@ fig7 = px.bar(
     x='new_cases',
     y='reporting_phu',
     orientation='h',
-    title='Regional Case Breakdown',
+    title=f'Regional Case Breakdown [{str(df["Date"].max()-timedelta(days=1))}]',
     labels={
         'new_cases': 'New Cases',
         'reporting_phu': 'Reporting PHU'
