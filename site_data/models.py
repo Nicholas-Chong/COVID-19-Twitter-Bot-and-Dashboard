@@ -40,6 +40,6 @@ class Daily_Regional_Report(Model):
         database = db
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
     # Create the tables
     # db.create_tables([Daily_Regional_Report])
