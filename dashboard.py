@@ -84,6 +84,17 @@ fig6 = px.pie(
     values=[total_recovered, total_deaths, total_active], 
     title=f'Total Case Summary [{str(df["Date"].max())}]'
 )
+fig7 = px.bar(
+    data_frame=df_regional,
+    x='new_cases',
+    y='reporting_phu',
+    orientation='h',
+    title='Regional Case Breakdown',
+    labels={
+        'new_cases': 'New Cases',
+        'reporting_phu': 'Reporting PHU'
+    }
+)
 
 figs_list = [fig1, fig2, fig3, fig4, fig5, fig6]
 [i.update_layout(yaxis=dict(fixedrange=True)) for i in figs_list]
@@ -321,6 +332,14 @@ app.layout = html.Div(
             style={
                 'display' : 'flex',
             }
+        ),
+
+        html.Div(
+            [
+                dcc.Graph(figure=fig7, id='graph7'),
+            ],
+
+            className='pretty_container',
         ),
 
         html.Div(

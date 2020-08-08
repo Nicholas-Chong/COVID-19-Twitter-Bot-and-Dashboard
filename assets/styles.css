@@ -163,3 +163,7 @@ body {
   transition: all 0.5s ease;
   background-color: rgb(38, 230, 255);
 }
+
+#graph7 {
+  height: 800px;
+}

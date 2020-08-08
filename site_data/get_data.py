@@ -43,3 +43,7 @@ df['Percent Positive'] = round((df['New Cases'] / df['Tests Completed']) * 100, 
 # Store day over day increases in lists
 dod_new_cases = day_over_day(df.iloc[-1]['New Cases'], df.iloc[-2]['New Cases'])
 dod_new_deaths = day_over_day(df.iloc[-1]['New Deaths'], df.iloc[-2]['New Deaths'])
+
+# Query regional data and return as dict
+regional_data = Daily_Regional_Report.select().dicts()
+df_regional = pd.DataFrame(regional_data).sort_values(by=['new_cases'])
