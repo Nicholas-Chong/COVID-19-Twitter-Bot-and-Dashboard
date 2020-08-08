@@ -11,6 +11,7 @@ Created:     2020-07-21 (YYYY/MM/DD)
 import plotly.express as px
 import pandas as pd
 from .models import * # Relative import (dashboard.py -> get_data.py)
+from datetime import timedelta
 
 # Function to get day over day variances; pass on the corresponding color
 def day_over_day(today, yesterday):
@@ -45,5 +46,6 @@ dod_new_cases = day_over_day(df.iloc[-1]['New Cases'], df.iloc[-2]['New Cases'])
 dod_new_deaths = day_over_day(df.iloc[-1]['New Deaths'], df.iloc[-2]['New Deaths'])
 
 # Query regional data and return as dict
-regional_data = Daily_Regional_Report.select().dicts()
+regional_data = Daily_Regional_Report.select().where(
+    Daily_Regional_Report.date == df['Date'].max()-timedelta(days=1)).dicts()
 df_regional = pd.DataFrame(regional_data).sort_values(by=['new_cases'])
