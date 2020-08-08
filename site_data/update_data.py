@@ -72,11 +72,15 @@ def update():
 def regional_update():
     link = 'https://data.ontario.ca/api/3/action/datastore_search?resource_id=455fd63b-603d-4608-8216-7d8647f43350&limit=1000000'
 
+    date = str(Daily_Report.select().order_by(Daily_Report.id.desc()).get().date)
     query = urllib.request.urlopen(link)
     query = json.loads(query.read())
     query = query['result']['records']
-    query = list(filter(lambda x: x['Case_Reported_Date'] == '2020-08-06T00:00:00', query))
+    query = list(filter(lambda x: x['Case_Reported_Date'] == date+'T00:00:00', query))
 
+    if len(query) == 0:
+        return 
+    
     phus_dict = {
         'North Bay Parry Sound District Health Unit': 0, 
         'Ottawa Public Health': 0, 
