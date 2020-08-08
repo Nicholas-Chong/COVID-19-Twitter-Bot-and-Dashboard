@@ -13,6 +13,7 @@ import heroku_api.commands as hc
 def main():
     tb.main()
     ud.update()
+    ud.regional_update()
     hc.restart_app()
 
 
