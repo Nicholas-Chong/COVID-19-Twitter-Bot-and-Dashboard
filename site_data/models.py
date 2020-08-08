@@ -30,6 +30,16 @@ class Daily_Report(Model):
         database = db
 
 
+class Daily_Regional_Report(Model):
+    date = DateField(null=True)
+    reporting_phu = CharField(max_length=100, null=True)
+    new_cases = IntegerField(null=True)
+
+    class Meta:
+        # This data model "belongs" to the database db
+        database = db
+
+
 if __name__ == '__main__':
     # Create the tables
-    db.create_tables([Daily_Report])
+    # db.create_tables([Daily_Regional_Report])
