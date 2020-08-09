@@ -111,7 +111,7 @@ fig8 = px.bar(
     color_continuous_scale='Peach'
 )
 
-figs_list = [fig1, fig2, fig3, fig4, fig5, fig6]
+figs_list = [fig1, fig2, fig3, fig4, fig5, fig6, fig7, fig8]
 [i.update_layout(yaxis=dict(fixedrange=True)) for i in figs_list]
 
 # Create layout (html generation using dash_html_components)
@@ -372,6 +372,14 @@ app.layout = html.Div(
                     Not affiliated with the Ontario Government. Data obtained
                     from the Ontario Government data catalogue.
                     ''',
+                    style={
+                        'font-size' : 'x-small',
+                        'textAlign' : 'center',
+                    }
+                ),
+
+                html.P(
+                    f'Last updated {df["Date"].max()}',
                     style={
                         'font-size' : 'x-small',
                         'textAlign' : 'center',
