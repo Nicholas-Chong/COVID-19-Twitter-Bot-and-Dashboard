@@ -93,7 +93,9 @@ fig7 = px.bar(
     labels={
         'total_cases': 'Total Cases',
         'reporting_phu': 'Reporting PHU'
-    }
+    },
+    color='total_cases',
+    color_continuous_scale='Peach'
 )
 fig8 = px.bar(
     data_frame=regional_increase,
@@ -104,7 +106,9 @@ fig8 = px.bar(
     labels={
         'total_cases': 'New Cases',
         'reporting_phu': 'Reporting PHU'
-    }
+    }, 
+    color='total_cases',
+    color_continuous_scale='Peach'
 )
 
 figs_list = [fig1, fig2, fig3, fig4, fig5, fig6]
