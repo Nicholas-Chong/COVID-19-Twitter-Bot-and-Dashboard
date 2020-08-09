@@ -273,36 +273,6 @@ app.layout = html.Div(
 
             className='pretty_container',
         ),
-
-        html.Div(
-            [
-                html.Div(
-                    [
-                        dcc.Graph(figure=fig2, id='graph2'),
-                    ],
-
-                    className='pretty_container',
-                    style={
-                        'width' : '50%',
-                    }
-                ),
-
-                html.Div(
-                    [
-                        dcc.Graph(figure=fig6, id='graph6'),
-                    ],
-
-                    className='pretty_container',
-                    style={
-                        'width' : '50%',
-                    }
-                ),
-            ],
-
-            style={
-                'display' : 'flex',
-            }
-        ),
         
         html.Div(
             [
@@ -342,6 +312,36 @@ app.layout = html.Div(
             }
         ),
 
+        html.Div(
+            [
+                html.Div(
+                    [
+                        dcc.Graph(figure=fig2, id='graph2'),
+                    ],
+
+                    className='pretty_container',
+                    style={
+                        'width' : '50%',
+                    }
+                ),
+
+                html.Div(
+                    [
+                        dcc.Graph(figure=fig6, id='graph6'),
+                    ],
+
+                    className='pretty_container',
+                    style={
+                        'width' : '50%',
+                    }
+                ),
+            ],
+
+            style={
+                'display' : 'flex',
+            }
+        ),
+        
         html.Div(
             [
                 dcc.Graph(figure=fig7, id='graph7'),
