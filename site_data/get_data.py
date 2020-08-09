@@ -21,6 +21,8 @@ def day_over_day(today, yesterday):
     else:
         return [f'{str(difference)} decrease vs yesterday', 'limegreen']
 
+### DAILY ONTARIO DATA ###
+
 # Query data and return as dictionary
 data = Daily_Report.select().dicts()
 
@@ -45,7 +47,16 @@ df['Percent Positive'] = round((df['New Cases'] / df['Tests Completed']) * 100, 
 dod_new_cases = day_over_day(df.iloc[-1]['New Cases'], df.iloc[-2]['New Cases'])
 dod_new_deaths = day_over_day(df.iloc[-1]['New Deaths'], df.iloc[-2]['New Deaths'])
 
+### DAILY REGIONAL DATA ###
+
 # Query regional data and return as dict
 regional_data = Daily_Regional_Report.select().where(Daily_Regional_Report.date == df['Date'].max()-timedelta(days=1)).dicts()
 df_regional = pd.DataFrame(regional_data).sort_values(by=['total_cases'])
-# print(sum(df_regional['total_cases']))
+
+# Query regional data from 2 days ago (for calculating daily increase)
+regional_data2 = Daily_Regional_Report.select().where(Daily_Regional_Report.date == df['Date'].max()-timedelta(days=2)).dicts()
+df_regional2 = pd.DataFrame(regional_data2).sort_values(by=['total_cases'])
+
+regional_increase =  df_regional.copy()
+regional_increase['total_cases'] = df_regional['total_cases'] - df_regional2['total_cases']
+regional_increase = regional_increase.sort_values(by=['total_cases'])
