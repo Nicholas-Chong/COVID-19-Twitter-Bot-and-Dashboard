@@ -89,9 +89,20 @@ fig7 = px.bar(
     x='total_cases',
     y='reporting_phu',
     orientation='h',
-    title=f'Regional Case Breakdown [{str(df["Date"].max())}]',
+    title=f'Total Case Regional Breakdown [{str(df["Date"].max())}]',
     labels={
         'total_cases': 'Total Cases',
+        'reporting_phu': 'Reporting PHU'
+    }
+)
+fig8 = px.bar(
+    data_frame=regional_increase,
+    x='total_cases',
+    y='reporting_phu',
+    orientation='h',
+    title=f'New Case Regional Breakdown [{str(df["Date"].max())}]',
+    labels={
+        'total_cases': 'New Cases',
         'reporting_phu': 'Reporting PHU'
     }
 )
@@ -268,7 +279,7 @@ app.layout = html.Div(
 
         html.Div(
             [
-                dcc.Graph(figure=fig7, id='graph8'),
+                dcc.Graph(figure=fig8, id='graph8'),
             ],
 
             className='pretty_container',
