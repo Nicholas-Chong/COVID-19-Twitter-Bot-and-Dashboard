@@ -243,7 +243,10 @@ app.layout = html.Div(
 
                         html.H6(
                             'foo',
-                            id='datepicker_output'
+                            id='datepicker_output',
+                            style={
+                                'font-size': 'medium'
+                            }
                         ),
 
                         html.Div(
