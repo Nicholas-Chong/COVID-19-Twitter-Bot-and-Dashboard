@@ -16,28 +16,37 @@ import datetime
 
 def update():
     # Get today's date -> Convert it into a string
-    date = str(Daily_Report.select().order_by(Daily_Report.id.desc()).get().date+datetime.timedelta(days=1))
-    print(date)
+    date = str(
+        Daily_Report
+        .select()
+        .order_by(Daily_Report.id.desc())
+        .get().date+datetime.timedelta(days=1)
+    )
 
     # Access Ontario Government coronavirus API; Search by today's date
     link = f'https://data.ontario.ca/api/3/action/datastore_search?q={date}&resource_id=ed270bb8-340b-41f9-a7c6-e8ef587e6d11'
     query = urllib.request.urlopen(link)
     query = json.loads(query.read())
 
-    sort_function = lambda x: datetime.datetime.strptime(x['Reported Date'][0:10], "%Y-%m-%d").date()
+    sort_function = (
+        lambda x: 
+        datetime.datetime.strptime(x['Reported Date'][0:10], "%Y-%m-%d").date()
+    )
     sorted_query = sorted(
         query['result']['records'], 
         key=sort_function, 
         reverse=True
-        )
-    pprint.pprint(sorted_query)
+    )
 
     # Isolate today's record and print
     report = sorted_query[0]
-    pprint.pprint(report)
 
     # Get required data, format and store in variables
-    date = datetime.datetime.strptime(report['Reported Date'][0:10], "%Y-%m-%d").date()
+    date = (
+        datetime.datetime
+        .strptime(report['Reported Date'][0:10], "%Y-%m-%d")
+        .date()
+    )
     net_new_tests = report['Total tests completed in the last day']
     total_cases = report['Total Cases']
     total_deaths = report['Deaths']
@@ -72,11 +81,16 @@ def update():
 def regional_update():
     link = 'https://data.ontario.ca/api/3/action/datastore_search?resource_id=455fd63b-603d-4608-8216-7d8647f43350&limit=1000000'
 
-    date = str(Daily_Report.select().order_by(Daily_Report.id.desc()).get().date-datetime.timedelta(days=1))
+    date = str(
+        Daily_Report
+        .select()
+        .order_by(Daily_Report.id.desc())
+        .get().date-datetime
+        .timedelta(days=1)
+    )
     query = urllib.request.urlopen(link)
     query = json.loads(query.read())
     query = query['result']['records']
-    # query = list(filter(lambda x: x['Case_Reported_Date'] == date+'T00:00:00', query))
 
     if len(query) == 0:
         return 
