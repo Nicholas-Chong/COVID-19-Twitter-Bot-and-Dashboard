@@ -25,8 +25,13 @@ def main():
 
     # Isolate required data and store in variables
     date = results[num_results]['Reported Date'][0:10]
-    new_cases = results[num_results]['Total Cases'] - results[num_results - 1]['Total Cases']
-    tests_completed = results[num_results]['Total tests completed in the last day']
+    new_cases = (
+        results[num_results]['Total Cases'] 
+        - results[num_results - 1]['Total Cases']
+    )
+    tests_completed = (
+        results[num_results]['Total tests completed in the last day']
+    )
     total_cases = results[num_results]['Total Cases'] 
 
     # Send out the daily update tweet
