@@ -52,6 +52,14 @@ app = dash.Dash(
             'prefix': 'og: http://ogp.me/ns#',
             'content': 'http://tinyurl.com/coronavirus-graphs',
         },
+        {
+            'name': 'viewport',
+            'content': '''
+                width=device-width, 
+                initial-scale=0.48, 
+                maximum-scale=0.48, 
+                minimum-scale=0.48 ''',
+        },
     ],
 )
 server = app.server
@@ -60,7 +68,7 @@ app.title = 'Ontario Coronavirus Summary'
 # Create Figures
 fig1 = px.line(
     data_frame=df, x='Date', y=['New Cases', '7 Day Average'], 
-    title='Daily New Cases'
+    title='Daily New Cases', 
 )
 fig2 = px.line(
     data_frame=df, x='Date', y='Total Cases', title='Total Cases'
@@ -108,11 +116,18 @@ fig8 = px.bar(
         'reporting_phu': 'Reporting PHU'
     }, 
     color='total_cases',
-    color_continuous_scale='Peach'
+    color_continuous_scale='Peach',
 )
 
-figs_list = [fig1, fig2, fig3, fig4, fig5, fig6, fig7, fig8]
-[i.update_layout(yaxis=dict(fixedrange=True)) for i in figs_list]
+fig1.update_layout(showlegend=False, margin={'r': 30}, xaxis_automargin=True)
+
+figs_list = [fig1, fig2, fig3, fig4, fig5, fig7, fig8]
+[
+    i.update_layout(
+        yaxis=dict(fixedrange=True), xaxis=dict(fixedrange=True), 
+        showlegend=False, margin={'r': 30}, coloraxis_showscale=False) 
+    for i in figs_list
+]
 
 # Create layout (html generation using dash_html_components)
 app.layout = html.Div(
@@ -257,28 +272,37 @@ app.layout = html.Div(
                                     n_clicks=0
                                 )
                             ],
+                            id='reset_button_div',
                             style={
                                 'margin-left': 'auto',
                             }
                         )
                     ],
+                    id='datepicker_bar',
                     className='mini_container',
                     style={
                         'display': 'flex',
                         'align-items': 'center',
+                        'position': 'sticky',
+                        'top': '0'
                     }
                 ),
             ],
-            id='datepicker_container',
             className='container-display',
+            id='datepicker_container',
             style={
-                'display': 'flex',
+                'position': 'sticky',
+                'z-index': 1000
             }
         ),
 
         html.Div(
             [
-                dcc.Graph(figure=fig1, id='graph1'),
+                dcc.Graph(
+                    figure=fig1, 
+                    id='graph1', 
+                    config={'displayModeBar': False,}
+                ),
             ],
 
             className='pretty_container',
@@ -286,7 +310,12 @@ app.layout = html.Div(
 
         html.Div(
             [
-                dcc.Graph(figure=fig8, id='graph8'),
+                dcc.Graph(
+                    figure=fig8, 
+                    id='graph8',
+                    responsive=True, 
+                    config={'displayModeBar': False,}
+                ),
             ],
 
             className='pretty_container',
@@ -294,7 +323,11 @@ app.layout = html.Div(
         
         html.Div(
             [
-                dcc.Graph(figure=fig3, id='graph3'),
+                dcc.Graph(
+                    figure=fig3, 
+                    id='graph3',
+                    config={'displayModeBar': False,}
+                ),
             ],
 
             className='pretty_container'
@@ -304,65 +337,70 @@ app.layout = html.Div(
             [
                 html.Div(
                     [
-                        dcc.Graph(figure=fig4, id='graph4'),
+                        dcc.Graph(
+                            figure=fig4, 
+                            id='graph4', 
+                            config={'displayModeBar': False,}
+                        ),
                     ],
 
-                    className='pretty_container',
-                    style={
-                        'width' : '50%',
-                    }
+                    className='pretty_container half_graph',
                 ),
 
                 html.Div(
                     [
-                        dcc.Graph(figure=fig5, id='graph5'),
+                        dcc.Graph(
+                            figure=fig5, 
+                            id='graph5', 
+                            config={'displayModeBar': False,}
+                        ),
                     ],
 
-                    className='pretty_container',
+                    className='pretty_container half_graph',
                     style={
-                        'width' : '50%',
+                        # 'width' : '50%',
                     }
                 ),
             ],
-
-            style={
-                'display' : 'flex',
-            }
+            className='two_graph_container',
         ),
 
         html.Div(
             [
                 html.Div(
                     [
-                        dcc.Graph(figure=fig2, id='graph2'),
+                        dcc.Graph(
+                            figure=fig2, 
+                            id='graph2', 
+                            config={'displayModeBar': False,}
+                        ),
                     ],
 
-                    className='pretty_container',
-                    style={
-                        'width' : '50%',
-                    }
+                    className='pretty_container half_graph',
                 ),
 
                 html.Div(
                     [
-                        dcc.Graph(figure=fig6, id='graph6'),
+                        dcc.Graph(
+                            figure=fig6, 
+                            id='graph6', 
+                            config={'displayModeBar': False,}
+                        ),
                     ],
 
-                    className='pretty_container',
-                    style={
-                        'width' : '50%',
-                    }
+                    className='pretty_container half_graph',
                 ),
             ],
-
-            style={
-                'display' : 'flex',
-            }
+            className='two_graph_container'
         ),
         
         html.Div(
             [
-                dcc.Graph(figure=fig7, id='graph7'),
+                dcc.Graph(
+                    figure=fig7, 
+                    id='graph7', 
+                    config={'displayModeBar': False,}
+                ),
             ],
 
             className='pretty_container',
@@ -492,7 +530,13 @@ def update_graphs(xrange):
     newfigs = [newfig1, newfig2, newfig3, newfig4, newfig5]
 
     # Update newfigs layouts with new xrange (start, end)
-    [i.update_layout(transition_duration=500) for i in newfigs]
+    [
+        i.update_layout(
+            transition_duration=500, showlegend=False, 
+            yaxis=dict(fixedrange=True), xaxis=dict(fixedrange=True), 
+            margin={'r': 30}) 
+        for i in newfigs
+    ]
 
     return [newfig1, newfig2, newfig3, newfig4, newfig5, start, end]
 

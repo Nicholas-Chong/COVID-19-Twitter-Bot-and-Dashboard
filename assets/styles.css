@@ -7,6 +7,10 @@ body {
   background-color: #f2f2f2;
   margin: 5%;
 }
+
+html {
+  min-width: 850px;
+}
   
 .two.columns {
   width: 16.25%;
@@ -24,6 +28,7 @@ body {
   padding: 15px;
   position: relative;
   box-shadow: 2px 2px 2px lightgrey;
+  z-index: 0;
 }
 
 .bare_container {
@@ -95,9 +100,6 @@ body {
   margin-right: 10px;
   margin-top: 30px;
 }
-#title {
-  text-align: center;
-}
 
 .mini_container {
   border-radius: 5px;
@@ -107,6 +109,7 @@ body {
   position: relative;
   box-shadow: 2px 2px 2px lightgrey;
   flex: 1;
+  z-index: 10;
 }
 
 #right-column {
@@ -153,10 +156,24 @@ body {
 }
 
 #datepicker_container {
-  z-index: 1;
+  z-index: 1 !important;
   position: sticky;
   position: -webkit-sticky;
   top: 0px;
+}
+
+@media (max-width: 900px) {
+  #datepicker_bar {
+    flex-direction: column;
+  }
+
+  #reset_button_div {
+    margin: auto;
+  }
+
+  .DateInput, #datepicker_output, #reset_graphs_button {
+    font-size: 16px;
+  }
 }
 
 #reset_graphs_button:hover {
@@ -166,4 +183,29 @@ body {
 
 #graph7 ,#graph8 {
   height: 800px;
+}
+
+.two_graph_container {
+  display: flex;
+}
+
+.half_graph {
+  width: 50%;
+}
+
+@media (max-width: 900px) {
+  .two_graph_container {
+    flex-direction: column;
+  }
+
+  .half_graph {
+    width: inherit;
+  }
+
+  .pretty_container {
+    padding: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    position: relative;
+  }
 }
