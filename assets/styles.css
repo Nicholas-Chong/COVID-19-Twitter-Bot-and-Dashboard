@@ -172,7 +172,7 @@ html {
   }
 
   .DateInput, #datepicker_output, #reset_graphs_button {
-    font-size: 16px;
+    font-size: 1.25em;
   }
 }
 
