@@ -51,18 +51,25 @@ function make_clickable() {
         box.style.cursor = 'pointer';
     }
 
+    if (window.innerWidth >= 900) {
+        offset = document.getElementById('datepicker_bar').clientHeight + 50
+
+    } else {
+        offset = 0 
+    }
+
     graphs = [
-        document.getElementById('graph1').getBoundingClientRect().top - 125,
-        document.getElementById('graph2').getBoundingClientRect().top - 125,
-        document.getElementById('graph3').getBoundingClientRect().top - 125,
-        document.getElementById('graph4').getBoundingClientRect().top - 125,
+        document.getElementById('graph1').getBoundingClientRect().top - offset,
+        document.getElementById('graph2').getBoundingClientRect().top - offset,
+        document.getElementById('graph3').getBoundingClientRect().top - offset,
+        document.getElementById('graph4').getBoundingClientRect().top - offset,
     ]
 
     boxes[0].onclick = function() { scrollToSmoothly(graphs[0], 0); }
     boxes[1].onclick = function() { scrollToSmoothly(graphs[2], 0); }
     boxes[2].onclick = function() { scrollToSmoothly(graphs[1], 0); }
     // boxes[3].onclick = function() { scrollToSmoothly(1857, 50); }
-
 }
 
 setTimeout(make_clickable, 1000);
+window.onresize = make_clickable;
