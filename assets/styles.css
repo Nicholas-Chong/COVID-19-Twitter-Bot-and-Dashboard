@@ -8,6 +8,17 @@ body {
   margin: 5%;
 }
 
+@media (prefers-color-scheme: dark) { 
+  body {
+    background-color: #1f2933;
+  }
+
+  text, p, h1, h2, h3, h4, h5, h6:not(#box1 > p, #box2 > p) {
+    fill: #F5F7FA !important;
+    color: #F5F7FA;
+  }
+}
+
 html {
   min-width: 850px;
 }
@@ -29,6 +40,50 @@ html {
   position: relative;
   box-shadow: 2px 2px 2px lightgrey;
   z-index: 0;
+}
+
+@media (prefers-color-scheme: dark) { 
+  .pretty_container {
+    background-color: #3E4C59;
+    box-shadow: 2px 2px 2px #3E4C59;
+  }
+
+  .main-svg {
+    background-color: inherit !important;
+  }
+
+  .bglayer > rect {
+    fill: #52606D !important;
+  }
+
+  .xgrid, .ygrid {
+    stroke: black !important;
+  }
+
+  .zerolinelayer > path {
+    stroke: black !important;
+  }
+
+  .js-line {
+    stroke:  rgb(24, 237, 226);
+  }
+
+  .js-line {
+    stroke: rgb(32, 244, 247) !important;
+  }
+
+  #graph1 g.scatterlayer > g.trace:nth-child(2) path.js-line {
+    stroke: red !important;
+  }
+
+  .pretty_container {
+    background-color: #323F4B;
+    box-shadow: 2px 2px 2px #323F4B;
+  }
+
+  g.legend > rect.bg {
+    fill: #52606D !important;
+  }
 }
 
 .bare_container {
@@ -112,6 +167,13 @@ html {
   z-index: 10;
 }
 
+@media (prefers-color-scheme: dark) { 
+  .mini_container {
+    background-color: #323F4B;
+    box-shadow: 2px 2px 2px #323F4B;
+  }
+}
+
 #right-column {
   display: flex;
   flex-direction: column;
@@ -148,6 +210,30 @@ html {
 
 .DateInput_input {
   text-align: center;
+}
+
+.DateInput_1 {
+  background: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .DateInput > input {
+    background-color: #3E4C59 !important;
+    border-color: #3E4C59 !important;
+    color: #F5F7FA;
+  }
+
+  .DateRangePickerInput {
+    border-color: #3E4C59 !important;
+  }
+
+  .DateRangePickerInput_arrow_svg > path {
+    fill: #F5F7FA;
+  }
+
+  #reset_graphs_button {
+    color: #F5F7FA;
+  }
 }
 
 #datepicker_output {
