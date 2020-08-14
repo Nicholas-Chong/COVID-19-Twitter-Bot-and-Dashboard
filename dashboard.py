@@ -92,31 +92,39 @@ fig6 = px.pie(
     values=[total_recovered, total_deaths, total_active], 
     title=f'Total Case Summary [{str(df["Date"].max())}]'
 )
-fig7 = px.bar(
-    data_frame=df_regional,
-    x='total_cases',
-    y='reporting_phu',
-    orientation='h',
-    title=f'Total Case Regional Breakdown [{str(df["Date"].max())}]',
-    labels={
-        'total_cases': 'Total Cases',
-        'reporting_phu': 'Reporting PHU'
-    },
-    color='total_cases',
-    color_continuous_scale='Peach'
+fig7 = (
+    px.bar(
+        data_frame=df_regional,
+        x='total_cases',
+        y='reporting_phu',
+        orientation='h',
+        title=f'Total Case Regional Breakdown [{str(df["Date"].max())}]',
+        labels={
+            'total_cases': 'Total Cases',
+            'reporting_phu': 'Reporting PHU'
+        },
+        color='total_cases',
+        color_continuous_scale='Peach',
+        text='total_cases'
+    )
+    .update_traces(textposition='outside', texttemplate='%{text:.2s}')
 )
-fig8 = px.bar(
-    data_frame=regional_increase,
-    x='total_cases',
-    y='reporting_phu',
-    orientation='h',
-    title=f'New Case Regional Breakdown [{str(df["Date"].max())}]',
-    labels={
-        'total_cases': 'New Cases',
-        'reporting_phu': 'Reporting PHU'
-    }, 
-    color='total_cases',
-    color_continuous_scale='Peach',
+fig8 = (
+    px.bar(
+        data_frame=regional_increase,
+        x='total_cases',
+        y='reporting_phu',
+        orientation='h',
+        title=f'New Case Regional Breakdown [{str(df["Date"].max())}]',
+        labels={
+            'total_cases': 'New Cases',
+            'reporting_phu': 'Reporting PHU'
+        }, 
+        color='total_cases',
+        color_continuous_scale='Peach',
+        text='total_cases',
+    )   
+    .update_traces(textposition='outside')
 )
 
 fig1.update_layout(showlegend=False, margin={'r': 30}, xaxis_automargin=True)
