@@ -122,12 +122,11 @@ fig8 = px.bar(
 fig1.update_layout(showlegend=False, margin={'r': 30}, xaxis_automargin=True)
 
 figs_list = [fig1, fig2, fig3, fig4, fig5, fig7, fig8]
-[
+for i in figs_list:
     i.update_layout(
         yaxis=dict(fixedrange=True), xaxis=dict(fixedrange=True), 
-        showlegend=False, margin={'r': 30}, coloraxis_showscale=False) 
-    for i in figs_list
-]
+        showlegend=False, margin={'r': 30}, coloraxis_showscale=False
+    ) 
 
 # Create layout (html generation using dash_html_components)
 app.layout = html.Div(
@@ -527,13 +526,12 @@ def update_graphs(xrange):
     newfigs = [newfig1, newfig2, newfig3, newfig4, newfig5]
 
     # Update newfigs layouts with new xrange (start, end)
-    [
+    for i in newfigs:
         i.update_layout(
             transition_duration=500, showlegend=False, 
             yaxis=dict(fixedrange=True), xaxis=dict(fixedrange=True), 
-            margin={'r': 30}) 
-        for i in newfigs
-    ]
+            margin={'r': 30}
+        ) 
 
     return [newfig1, newfig2, newfig3, newfig4, newfig5, start, end]
 
