@@ -84,9 +84,6 @@ fig5 = px.line(
     data_frame=df, x='Date', y='Percent Positive', 
     title='Daily Percent Positive'
 )
-total_recovered = df.at[len(df)-1, 'Total Recovered'],
-total_deaths = df.at[len(df)-1, 'Total Deaths'],
-total_active = df.at[len(df)-1, 'Total Cases'] - total_recovered - total_deaths
 fig6 = px.pie(
     names=['Recovered', 'Deceased', 'Active'],
     values=[total_recovered, total_deaths, total_active], 

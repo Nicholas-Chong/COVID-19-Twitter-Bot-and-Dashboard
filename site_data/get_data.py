@@ -80,3 +80,8 @@ regional_increase['total_cases'] = (
     - df_regional2['total_cases']
 )
 regional_increase = regional_increase.sort_values(by=['total_cases'])
+
+### Pie Graph Data ###
+total_recovered = df.at[len(df)-1, 'Total Recovered'],
+total_deaths = df.at[len(df)-1, 'Total Deaths'],
+total_active = df.at[len(df)-1, 'Total Cases'] - total_recovered - total_deaths
