@@ -66,9 +66,12 @@ server = app.server
 app.title = 'Ontario Coronavirus Summary'
 
 # Create Figures
-fig1 = px.line(
-    data_frame=df, x='Date', y=['New Cases', '7 Day Average'], 
-    title='Daily New Cases', 
+fig1 = (
+    px.line(
+        data_frame=df, x='Date', y=['New Cases', '7 Day Average'], 
+        title='Daily New Cases', 
+    )
+    .update_layout(showlegend=False, margin={'r': 30}, xaxis_automargin=True)
 )
 fig2 = px.line(
     data_frame=df, x='Date', y='Total Cases', title='Total Cases'
@@ -123,8 +126,6 @@ fig8 = (
     )   
     .update_traces(textposition='outside')
 )
-
-fig1.update_layout(showlegend=False, margin={'r': 30}, xaxis_automargin=True)
 
 figs_list = [fig1, fig2, fig3, fig4, fig5, fig7, fig8]
 for i in figs_list:
