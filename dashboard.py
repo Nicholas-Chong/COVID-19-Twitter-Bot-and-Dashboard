@@ -111,14 +111,14 @@ fig7 = (
 )
 fig8 = (
     px.bar(
-        data_frame=regional_increase,
+        data_frame=df_regional2,
         x='total_cases',
-        y='reporting_phu',
+        y=df_regional2.index.tolist(),
         orientation='h',
         title=f'New Case Regional Breakdown [{str(df["Date"].max())}]',
         labels={
             'total_cases': 'New Cases',
-            'reporting_phu': 'Reporting PHU'
+            'y': 'Reporting PHU'
         }, 
         color='total_cases',
         color_continuous_scale='Peach',
