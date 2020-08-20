@@ -13,7 +13,7 @@ import pprint
 import json
 from . import tweets 
 
-def main():
+def main(todays_date):
     link = 'https://data.ontario.ca/api/3/action/datastore_search?resource_id=ed270bb8-340b-41f9-a7c6-e8ef587e6d11&limit=1000'
 
     # Query data through API
@@ -25,6 +25,11 @@ def main():
 
     # Isolate required data and store in variables
     date = results[num_results]['Reported Date'][0:10]
+
+    # Ensure the correct date
+    if date != str(todays_date):
+        return
+
     new_cases = (
         results[num_results]['Total Cases'] 
         - results[num_results - 1]['Total Cases']
