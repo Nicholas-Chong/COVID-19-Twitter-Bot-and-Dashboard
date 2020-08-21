@@ -8,7 +8,8 @@ Created:     2020-06-24 (YYYY/MM/DD)
 
 import twitter.bot as tb
 import site_data.update_data as ud
-import heroku_api.commands as hcfrom site_data.models import *
+import heroku_api.commands as hc
+from site_data.models import *
 from datetime import timedelta
 
 def main():
