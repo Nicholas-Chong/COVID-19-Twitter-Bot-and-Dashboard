@@ -13,7 +13,7 @@ body {
     background-color: #1f2933;
   }
 
-  text, p, h1, h2, h3, h4, h5, h6:not(#box1 > p, #box2 > p) {
+  text, p, h1, h2, h3, h4, h5, h6 {
     fill: #F5F7FA !important;
     color: #F5F7FA;
   }

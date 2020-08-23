@@ -69,9 +69,9 @@ app.title = 'Ontario Coronavirus Summary'
 fig1 = (
     px.line(
         data_frame=df, x='Date', y=['New Cases', '7 Day Average'], 
-        title='Daily New Cases', 
+        title='Daily New Cases',
     )
-    .update_layout(showlegend=False, margin={'r': 30}, xaxis_automargin=True)
+    .update_layout(showlegend=False, margin={'r': 30})
 )
 fig2 = px.line(
     data_frame=df, x='Date', y='Total Cases', title='Total Cases'
@@ -131,7 +131,8 @@ figs_list = [fig1, fig2, fig3, fig4, fig5, fig7, fig8]
 for i in figs_list:
     i.update_layout(
         yaxis=dict(fixedrange=True), xaxis=dict(fixedrange=True), 
-        showlegend=False, margin={'r': 30}, coloraxis_showscale=False
+        showlegend=False, margin={'r': 30}, coloraxis_showscale=False, 
+        transition_duration=500,
     ) 
 
 # Create layout (html generation using dash_html_components)
@@ -241,9 +242,15 @@ app.layout = html.Div(
             ]
         ),
 
+        # Store the fig dictionaries for user in callbacks
         dcc.Store(
             id='clientside_datastore',
-            data={}
+            data=figs_list[0:5]
+        ),
+
+        dcc.Store(
+            id='clientside_datastore2',
+            data=None
         ),
 
         html.Div(
@@ -469,7 +476,27 @@ app.layout = html.Div(
     ]
 )
 
+# Using clientside callbacks to avoid "expensive" serverside callbacks
+# - Callbacks are executed when changes occur to the state of the Input
+#   Ex. when prop 'n_clicks' of element with id 'reset_graphs_button' changes,
+#   execute the callback
 
+# Reset daterange button -> datepicker
+app.clientside_callback(
+    ClientsideFunction(
+        namespace='clientside',
+        function_name='reset_daterange'
+    ),
+    [
+        Output('datepicker', 'start_date'),
+        Output('datepicker', 'end_date'),
+    ],
+    [
+        Input('reset_graphs_button', 'n_clicks'),
+    ]
+)
+
+# datepicker -> clientside_datastore2, datepicker output message
 app.clientside_callback(
     ClientsideFunction(
         namespace='clientside',
@@ -477,70 +504,34 @@ app.clientside_callback(
     ),
     [
         Output('datepicker_output', 'children'), 
-        Output('clientside_datastore', 'data'),
+        Output('clientside_datastore2', 'data'),
     ],
     [
         Input('datepicker', 'start_date'),
         Input('datepicker', 'end_date'),
-        Input('reset_graphs_button', 'n_clicks'),
     ]
 )
 
-@app.callback(
+# clientside_datastore2 -> graphs
+# - Update graphs by mutating figure dictionaries stored in variable
+#   clientside_datastore 
+app.clientside_callback(
+    ClientsideFunction(
+        namespace='clientside',
+        function_name='update_graphs'
+    ),
     [
         Output('graph1', 'figure'), 
         Output('graph2', 'figure'), 
         Output('graph3', 'figure'), 
         Output('graph4', 'figure'), 
         Output('graph5', 'figure'), 
-        Output('datepicker', 'start_date'),
-        Output('datepicker', 'end_date'),
     ],
-    [Input('clientside_datastore', 'data')]
+    [
+        Input('clientside_datastore', 'data'),
+        Input('clientside_datastore2', 'data'),
+    ]
 )
-def update_graphs(xrange):
-    '''
-    Updates graphs for a particular xrange by returning new figures
-    '''
-
-    # Extract start and end dates (as strings) from xrange
-    start = datetime.strptime(xrange['start'], "%Y-%m-%d").date()
-    end = datetime.strptime(xrange['end'], "%Y-%m-%d").date()
-
-    newdf = df.copy()
-    newdf = newdf[(newdf['Date'] >= start) & (newdf['Date'] <= end)]
-
-    # Create new figs
-    newfig1 = px.line(
-        data_frame=newdf, x='Date', y=['New Cases', '7 Day Average'], 
-        title='Daily New Cases'
-    )
-    newfig2 = px.line(
-        data_frame=newdf, x='Date', y='Total Cases', title='Total Cases'
-    )
-    newfig3 = px.line(
-        data_frame=newdf, x='Date', y='New Deaths', title='Daily New Deaths'
-    )
-    newfig4 = px.line(
-        data_frame=newdf, x='Date', y='Tests Completed', 
-        title='Daily Tests Completed'
-    )
-    newfig5 = px.line(
-        data_frame=newdf, x='Date', y='Percent Positive', 
-        title='Daily Percent Positive'
-    )
-    newfigs = [newfig1, newfig2, newfig3, newfig4, newfig5]
-
-    # Update newfigs layouts with new xrange (start, end)
-    for i in newfigs:
-        i.update_layout(
-            transition_duration=500, showlegend=False, 
-            yaxis=dict(fixedrange=True), xaxis=dict(fixedrange=True), 
-            margin={'r': 30}
-        ) 
-
-    return [newfig1, newfig2, newfig3, newfig4, newfig5, start, end]
-
 
 if __name__ == '__main__':
     app.run_server(debug=True, host='0.0.0.0')
