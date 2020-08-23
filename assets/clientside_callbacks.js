@@ -16,7 +16,7 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
                             'start': '2020-01-26',
                             'end': today,
                         }
-    
+
                         return [message, range]
                     }
                 }
@@ -29,6 +29,40 @@ window.dash_clientside = Object.assign({}, window.dash_clientside, {
             }
 
             return [message, range]
+        },
+
+        update_graphs: function(data, range) {
+
+            let start = range['start']
+            let end = range['end']
+            let today = new Date().toLocaleDateString('en-CA')
+
+            let figs = JSON.parse(JSON.stringify(data))
+
+            if (start == '2020-01-26' && end == today) {
+                return figs
+            }
+
+            const findstartindex = (element) => element == start;
+            const findendindex = (element) => element == end;
+
+            let startIndex = figs[0].data[0].x.findIndex(findstartindex);
+            let endIndex = figs[0].data[0].x.findIndex(findendindex) + 1;
+
+            for (newfig of figs) {
+                for (data of newfig.data) {
+                    data.x = data.x.slice(startIndex, endIndex);
+                    data.y = data.y.slice(startIndex, endIndex);
+                }
+            }
+
+            return figs
+        }, 
+
+        reset_daterange: function() {
+            let today = new Date().toLocaleDateString('en-CA')
+            
+            return ['2020-01-26', today]
         }
     }
 });
