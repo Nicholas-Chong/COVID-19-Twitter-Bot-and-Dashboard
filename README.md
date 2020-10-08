@@ -9,6 +9,8 @@ Dashboard utilizes the Plotly Dash library to create and present visualizations.
 
 ![](readme_imgs/dashboard_img.png)
 
+Interactive components of the app, such as the date range selector, are handled with JavaScript clientside callbacks. In contrast to Plotly-Dash's traditional method of serverside callbacks, clientside callbacks are significantly faster since they do not need to send requests to the server.
+
 ## Twitter Bot
 
 [![Twitter](https://img.shields.io/twitter/url/https/twitter.com/cloudposse.svg?style=social&label=Follow%20%40OntarioCovid19)](https://twitter.com/OntarioCovid19)
