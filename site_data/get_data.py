@@ -37,6 +37,9 @@ df = pd.DataFrame({
     'Total Recovered' : [i['total_resolved'] for i in data],
 })
 
+# Sort by date to ensure everything is in the correct order
+df = df.sort_values(by=['Date'])
+
 # Determine 7 day rolling average
 df['7 Day Average'] = df['New Cases'].rolling(window=7).mean()
 
