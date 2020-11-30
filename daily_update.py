@@ -13,18 +13,12 @@ from site_data.models import *
 from datetime import timedelta
 
 def main():
-    todays_date = (
-        Daily_Report
-        .select()
-        .order_by(Daily_Report.id.desc())
-        .get()
-        .date 
-        +timedelta(days=1)
-    )
-
-    tb.main(todays_date)
     ud.update()
     ud.regional_update()
+
+    today = Daily_Report.select().order_by(Daily_Report.id.desc()).get()
+    tb.main(today)
+    
     hc.restart_app()
 
 
