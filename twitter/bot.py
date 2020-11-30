@@ -17,9 +17,9 @@ def main(today):
     # Send out the daily update tweet
     tweets.daily_update(
         today.date, 
-        today.new_cases, 
+        today.net_new_cases, 
         today.total_cases,
-        today.tests_completed,
+        today.net_new_tests,
     )
 
     print(True)
