@@ -92,42 +92,42 @@ fig6 = px.pie(
     values=[total_recovered, total_deaths, total_active], 
     title=f'Total Case Summary [{str(df["Date"].max())}]'
 )
-fig7 = (
-    px.bar(
-        data_frame=df_regional,
-        x='total_cases',
-        y='reporting_phu',
-        orientation='h',
-        title=f'Total Case Regional Breakdown [{str(df["Date"].max())}]',
-        labels={
-            'total_cases': 'Total Cases',
-            'reporting_phu': 'Reporting PHU'
-        },
-        color='total_cases',
-        color_continuous_scale='Peach',
-        text='total_cases'
-    )
-    .update_traces(textposition='outside', texttemplate='%{text:.2s}')
-)
+# fig7 = (
+#     px.bar(
+#         data_frame=df_regional,
+#         x='total_cases',
+#         y='reporting_phu',
+#         orientation='h',
+#         title=f'Total Case Regional Breakdown [{str(df["Date"].max())}]',
+#         labels={
+#             'total_cases': 'Total Cases',
+#             'reporting_phu': 'Reporting PHU'
+#         },
+#         color='total_cases',
+#         color_continuous_scale='Peach',
+#         text='total_cases'
+#     )
+#     .update_traces(textposition='outside', texttemplate='%{text:.2s}')
+# )
 fig8 = (
     px.bar(
-        data_frame=df_regional2,
-        x='total_cases',
-        y=df_regional2.index.tolist(),
+        data_frame=df_regional,
+        x=0,
+        y=df_regional.index.tolist(),
         orientation='h',
         title=f'New Case Regional Breakdown [{str(df["Date"].max())}]',
         labels={
             'total_cases': 'New Cases',
             'y': 'Reporting PHU'
         }, 
-        color='total_cases',
+        color=0,
         color_continuous_scale='Peach',
-        text='total_cases',
+        text=0,
     )   
     .update_traces(textposition='outside')
 )
 
-figs_list = [fig1, fig2, fig3, fig4, fig5, fig7, fig8]
+figs_list = [fig1, fig2, fig3, fig4, fig5, fig8]
 for i in figs_list:
     i.update_layout(
         yaxis=dict(fixedrange=True), xaxis=dict(fixedrange=True), 
@@ -403,17 +403,17 @@ app.layout = html.Div(
             className='two_graph_container'
         ),
         
-        html.Div(
-            [
-                dcc.Graph(
-                    figure=fig7, 
-                    id='graph7', 
-                    config={'displayModeBar': False,}
-                ),
-            ],
+        # html.Div(
+        #     [
+        #         dcc.Graph(
+        #             figure=fig7, 
+        #             id='graph7', 
+        #             config={'displayModeBar': False,}
+        #         ),
+        #     ],
 
-            className='pretty_container',
-        ),
+        #     className='pretty_container',
+        # ),
 
         html.Div(
             [
