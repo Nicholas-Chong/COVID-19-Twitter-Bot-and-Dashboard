@@ -16,7 +16,7 @@ import datetime
 
 def update():
     # Get today's date -> Convert it into a string
-    date = str(
+    todaysdate = str(
         Daily_Report
         .select()
         .order_by(Daily_Report.id.desc())
@@ -24,7 +24,7 @@ def update():
     )
 
     # Access Ontario Government coronavirus API; Search by today's date
-    link = f'https://data.ontario.ca/api/3/action/datastore_search?q={date}&resource_id=ed270bb8-340b-41f9-a7c6-e8ef587e6d11'
+    link = f'https://data.ontario.ca/api/3/action/datastore_search?q={todaysdate}&resource_id=ed270bb8-340b-41f9-a7c6-e8ef587e6d11'
     query = urllib.request.urlopen(link)
     query = json.loads(query.read())
 
@@ -47,6 +47,10 @@ def update():
         .strptime(report['Reported Date'][0:10], "%Y-%m-%d")
         .date()
     )
+
+    if todaysdate != date:
+        return print('DATASET HAS NOT UPDATED')
+
     net_new_tests = report['Total tests completed in the last day']
     total_cases = report['Total Cases']
     total_deaths = report['Deaths']
@@ -79,66 +83,54 @@ def update():
 
 
 def regional_update():
-    link = 'https://data.ontario.ca/api/3/action/datastore_search?resource_id=455fd63b-603d-4608-8216-7d8647f43350&limit=1000000'
-
-    date = str(
-        Daily_Report
-        .select()
-        .order_by(Daily_Report.id.desc())
-        .get().date-datetime
-        .timedelta(days=1)
-    )
+    link = 'https://data.ontario.ca/api/3/action/datastore_search?resource_id=8a88fe6d-d8fb-41a3-9d04-f0550a44999f&limit=10000'
     query = urllib.request.urlopen(link)
     query = json.loads(query.read())
-    query = query['result']['records']
 
-    if len(query) == 0:
-        return 
+    sort_function = (
+        lambda x: 
+        datetime.datetime.strptime(x['Date'][0:10], "%Y-%m-%d").date()
+    )
+    sorted_query = sorted(
+        query['result']['records'], 
+        key=sort_function, 
+        reverse=True
+    )
     
-    phus_dict = {
-        'North Bay Parry Sound District Health Unit': 0, 
-        'Ottawa Public Health': 0, 
-        'Region of Waterloo, Public Health': 0, 
-        'Peterborough Public Health': 0, 
-        'Huron Perth District Health Unit': 0, 
-        'Leeds, Grenville and Lanark District Health Unit': 0, 
-        'Timiskaming Health Unit': 0, 
-        'Peel Public Health': 0, 
-        'Porcupine Health Unit': 0, 
-        'Lambton Public Health': 0, 
-        'York Region Public Health Services': 0, 
-        'Hamilton Public Health Services': 0, 
-        'Thunder Bay District Health Unit': 0, 
-        'Haldimand-Norfolk Health Unit': 0, 
-        'Hastings and Prince Edward Counties Health Unit': 0, 
-        'Niagara Region Public Health Department': 0, 
-        'Chatham-Kent Health Unit': 0, 
-        'Brant County Health Unit': 0, 
-        'Grey Bruce Health Unit': 0, 
-        'Toronto Public Health': 0, 
-        'Kingston, Frontenac and Lennox & Addington Public Health': 0, 
-        'Halton Region Health Department': 0, 
-        'Simcoe Muskoka District Health Unit': 0, 
-        'Sudbury & District Health Unit': 0, 
-        'Durham Region Health Department': 0, 
-        'Southwestern Public Health': 0, 
-        'Algoma Public Health Unit': 0, 
-        'Middlesex-London Health Unit': 0,
-        'Haliburton, Kawartha, Pine Ridge District Health Unit': 0, 
-        'Northwestern Health Unit': 0, 
-        'Windsor-Essex County Health Unit': 0, 
-        'Wellington-Dufferin-Guelph Public Health': 0, 
-        'Renfrew County and District Health Unit': 0, 
-        'Eastern Ontario Health Unit': 0
-    }
-
-    for i in query:
-        phus_dict[i['Reporting_PHU']] += 1
-
-    for i in phus_dict:
-        Daily_Regional_Report.create(
-            date = datetime.datetime.strptime(date, "%Y-%m-%d").date(),
-            reporting_phu = i,
-            total_cases = phus_dict[i],
-        )
-        
+    Daily_Regional_Report.create(
+        Date = sorted_query[0]['Date'],
+        Algoma_Public_Health_Unit = sorted_query[0]['Algoma_Public_Health_Unit'],
+        Brant_County_Health_Unit = sorted_query[0]['Brant_County_Health_Unit'],
+        Chatham_Kent_Health_Unit = sorted_query[0]['Chatham-Kent_Health_Unit'],
+        Durham_Region_Health_Department = sorted_query[0]['Durham_Region_Health_Department'],
+        Eastern_Ontario_Health_Unit = sorted_query[0]['Eastern_Ontario_Health_Unit'],
+        Grey_Bruce_Health_Unit = sorted_query[0]['Grey_Bruce_Health_Unit'],
+        Haldimand_Norfolk_Health_Unit = sorted_query[0]['Haldimand-Norfolk_Health_Unit'],
+        Haliburton_Kawartha_Pine_Ridge_District_Health_Unit = sorted_query[0]['Haliburton,_Kawartha,_Pine_Ridge_District_Health_Unit'],
+        Halton_Region_Health_Department = sorted_query[0]['Halton_Region_Health_Department'],
+        Hamilton_Public_Health_Services = sorted_query[0]['Hamilton_Public_Health_Services'],
+        Hastings_and_Prince_Edward_Counties_Health_Unit = sorted_query[0]['Hastings_and_Prince_Edward_Counties_Health_Unit'],
+        Huron_Perth_District_Health_Unit = sorted_query[0]['Huron_Perth_District_Health_Unit'],
+        Kingston_Frontenac_and_Lennox_and_Addington_Public_Health = sorted_query[0]['Kingston,_Frontenac_and_Lennox_&_Addington_Public_Health'],
+        Lambton_Public_Health = sorted_query[0]['Lambton_Public_Health'],
+        Leeds_Grenville_and_Lanark_District_Health_Unit = sorted_query[0]['Leeds,_Grenville_and_Lanark_District_Health_Unit'],
+        Middlesex_London_Health_Unit = sorted_query[0]['Middlesex-London_Health_Unit'],
+        Niagara_Region_Public_Health_Department = sorted_query[0]['Niagara_Region_Public_Health_Department'],
+        North_Bay_Parry_Sound_District_Health_Unit = sorted_query[0]['North_Bay_Parry_Sound_District_Health_Unit'],
+        Northwestern_Health_Unit = sorted_query[0]['Northwestern_Health_Unit'],
+        Ottawa_Public_Health = sorted_query[0]['Ottawa_Public_Health'],
+        Peel_Public_Health = sorted_query[0]['Peel_Public_Health'],
+        Peterborough_Public_Health = sorted_query[0]['Peterborough_Public_Health'],
+        Porcupine_Health_Unit = sorted_query[0]['Porcupine_Health_Unit'],
+        Region_of_WaterlooPublic_Health = sorted_query[0]['Region_of_Waterloo,_Public_Health'],
+        Renfrew_County_and_District_Health_Unit = sorted_query[0]['Renfrew_County_and_District_Health_Unit'],
+        Simcoe_Muskoka_District_Health_Unit = sorted_query[0]['Simcoe_Muskoka_District_Health_Unit'],
+        Southwestern_Public_Health = sorted_query[0]['Southwestern_Public_Health'],
+        Sudbury_and_District_Health_Unit = sorted_query[0]['Sudbury_&_District_Health_Unit'],
+        Thunder_Bay_District_Health_Unit = sorted_query[0]['Thunder_Bay_District_Health_Unit'],
+        Timiskaming_Health_Unit = sorted_query[0]['Timiskaming_Health_Unit'],
+        Toronto_Public_Health = sorted_query[0]['Toronto_Public_Health'],
+        Wellington_Dufferin_Guelph_Public_Health = sorted_query[0]['Wellington-Dufferin-Guelph_Public_Health'],
+        Windsor_Essex_County_Health_Unit = sorted_query[0]['Windsor-Essex_County_Health_Unit'],
+        York_Region_Public_Health_Services = sorted_query[0]['York_Region_Public_Health_Services'],
+    )
