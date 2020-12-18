@@ -117,7 +117,7 @@ fig8 = (
         orientation='h',
         title=f'New Case Regional Breakdown [{str(df["Date"].max())}]',
         labels={
-            'total_cases': 'New Cases',
+            '0': 'New Cases',
             'y': 'Reporting PHU'
         }, 
         color=0,
