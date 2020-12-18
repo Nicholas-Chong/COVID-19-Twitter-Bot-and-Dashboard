@@ -48,7 +48,7 @@ def update():
         .date()
     )
 
-    if todaysdate != date:
+    if str(todaysdate) != str(date):
         return print('DATASET HAS NOT UPDATED')
 
     net_new_tests = report['Total tests completed in the last day']
