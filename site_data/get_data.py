@@ -62,34 +62,12 @@ dod_new_deaths = day_over_day(
 regional_data = (
     Daily_Regional_Report
     .select()
-    .where(Daily_Regional_Report.date == df['Date'].max()-timedelta(days=1))
+    .where(Daily_Regional_Report.Date == df['Date'].max())
     .dicts()
 )
-df_regional = (
-    pd
-    .DataFrame(regional_data)
-    .sort_values(by=['total_cases'])
-    .drop(columns=['id', 'date'])
-)
-
-# Query regional data from one day earlier (for calculating daily increase)
-regional_data2 = (
-    Daily_Regional_Report
-    .select()
-    .where(Daily_Regional_Report.date == df['Date'].max()-timedelta(days=2))
-    .dicts()
-)
-df_regional2 = (
-    pd
-    .DataFrame(regional_data2)
-    .sort_values(by=['reporting_phu'])
-    .set_index('reporting_phu')
-    .drop(columns=['id', 'date'])
-)
-
-# Subtract total cases to get day over day increase by region
-df_regional2 = df_regional.copy().set_index('reporting_phu') - df_regional2
-df_regional2 = df_regional2.sort_values(by=['total_cases'])
+df_regional = pd.DataFrame(regional_data).drop(columns=['id', 'Date'])
+df_regional = df_regional.iloc[0]
+df_regional = df_regional.sort_values()
 
 ### Pie Graph Data ###
 total_recovered = df.at[len(df)-1, 'Total Recovered'],
