@@ -37,6 +37,4 @@ http://ontariocovid-19.com
     '''
     )
 
-    api.update_status(message)
-
-    return logging.info('Tweet sent')
+    return api.update_status(message)

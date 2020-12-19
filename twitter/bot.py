@@ -13,9 +13,14 @@ import pprint
 import json
 from . import tweets 
 import logging
+from datetime import datetime
 
 def main(today):
     logging.info('Sending daily update tweet')
+
+    if str(today.date) != str(datetime.today().date()):
+        return logging.error('The record date does not match todays date')
+
     # Send out the daily update tweet
     tweets.daily_update(
         today.date, 
@@ -23,6 +28,8 @@ def main(today):
         today.total_cases,
         today.net_new_tests,
     )
+
+    logging.info('Tweet sent')
 
 
 if __name__ == '__main__':
