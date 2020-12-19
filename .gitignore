@@ -2,4 +2,4 @@ Covid_Twitter_Bot/
 .env
 __pycache__/
 .DS_Store
-application.log
+application.txt
