@@ -62,6 +62,7 @@ dod_new_deaths = day_over_day(
 most_recent_regional = Daily_Regional_Report.select(fn.MAX(Daily_Regional_Report.Date)).scalar()
 regional_data = Daily_Regional_Report.select().where(Daily_Regional_Report.Date == most_recent_regional).dicts()
 df_regional = pd.DataFrame(regional_data).drop(columns=['id', 'Date'])
+df_regional = df_regional.rename(columns={'Kingston_Frontenac_and_Lennox_and_Addington_Public_Health': 'Kingston-Frontenac,Lennox-Addington'})
 df_regional = df_regional.iloc[0]
 df_regional = df_regional.sort_values()
 
