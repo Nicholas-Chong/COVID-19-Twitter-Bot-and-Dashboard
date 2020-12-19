@@ -1,1 +1,1 @@
-web: gunicorn dashboard:server --log-file=-
+web: gunicorn dashboard:server

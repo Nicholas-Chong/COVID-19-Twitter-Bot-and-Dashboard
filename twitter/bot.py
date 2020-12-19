@@ -14,8 +14,6 @@ import json
 from . import tweets 
 import logging
 
-logging.info('TWITTER')
-
 def main(today):
     logging.info('Sending daily update tweet')
     # Send out the daily update tweet
