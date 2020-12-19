@@ -9,6 +9,7 @@ Created:     2020-06-19 (YYYY/MM/DD)
 
 import tweepy
 import os
+import logging
 
 auth = tweepy.OAuthHandler(
     os.getenv('API_KEY'), 
@@ -36,4 +37,6 @@ http://ontariocovid-19.com
     '''
     )
 
-    return api.update_status(message)
+    api.update_status(message)
+
+    return logging.info('Tweet sent')

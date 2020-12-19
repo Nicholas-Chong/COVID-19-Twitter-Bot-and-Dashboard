@@ -12,8 +12,12 @@ import urllib.request
 import pprint
 import json
 from . import tweets 
+import logging
+
+logging.info('TWITTER')
 
 def main(today):
+    logging.info('Sending daily update tweet')
     # Send out the daily update tweet
     tweets.daily_update(
         today.date, 
@@ -22,6 +26,6 @@ def main(today):
         today.net_new_tests,
     )
 
-    print(True)
+
 if __name__ == '__main__':
     main()

@@ -13,8 +13,11 @@ import pprint
 import json
 from .models import *
 import datetime
+import logging
 
 def update():
+    logging.info('Starting provincial update')
+
     # Get today's date -> Convert it into a string
     todaysdate = str(
         Daily_Report
@@ -49,7 +52,7 @@ def update():
     )
 
     if str(todaysdate) != str(date):
-        return print('DATASET HAS NOT UPDATED')
+        return logging.error('Dataset has not been updated. Unable to complete daily update')
 
     net_new_tests = report['Total tests completed in the last day']
     total_cases = report['Total Cases']
@@ -80,12 +83,16 @@ def update():
         total_deaths=total_deaths,
         total_resolved=total_recovered,
     )
+    logging.info('Provincial update complete')
 
 
 def regional_update():
+    logging.info('Starting regional update')
+
     link = 'https://data.ontario.ca/api/3/action/datastore_search?resource_id=8a88fe6d-d8fb-41a3-9d04-f0550a44999f&limit=10000'
     query = urllib.request.urlopen(link)
     query = json.loads(query.read())
+    logging.info('Queried data')
 
     sort_function = (
         lambda x: 
@@ -97,6 +104,9 @@ def regional_update():
         reverse=True
     )
     
+    if str(sorted_query[0]['Date']) != str(datetime.datetime.today().date()):
+        return logging.error('Dataset has not been updated. Unable to complete daily update')
+
     Daily_Regional_Report.create(
         Date = sorted_query[0]['Date'],
         Algoma_Public_Health_Unit = sorted_query[0]['Algoma_Public_Health_Unit'],
@@ -134,3 +144,5 @@ def regional_update():
         Windsor_Essex_County_Health_Unit = sorted_query[0]['Windsor-Essex_County_Health_Unit'],
         York_Region_Public_Health_Services = sorted_query[0]['York_Region_Public_Health_Services'],
     )
+    
+    logging.info('Regional update complete')

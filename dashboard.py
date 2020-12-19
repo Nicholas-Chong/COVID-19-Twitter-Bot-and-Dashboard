@@ -16,6 +16,10 @@ from site_data.get_data import *
 import time
 from datetime import datetime, timedelta
 from dash.dependencies import ClientsideFunction, Input, Output
+import logging
+
+logging.basicConfig(filename='application.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s | %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.info('Application started')
 
 # Create Dash app instance
 external_stylesheets = [
