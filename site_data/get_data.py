@@ -59,12 +59,8 @@ dod_new_deaths = day_over_day(
 ### DAILY REGIONAL DATA ###
 
 # Query most recent regional data and return as dict
-regional_data = (
-    Daily_Regional_Report
-    .select()
-    .where(Daily_Regional_Report.Date == df['Date'].max())
-    .dicts()
-)
+most_recent_regional = Daily_Regional_Report.select(fn.MAX(Daily_Regional_Report.Date)).scalar()
+regional_data = Daily_Regional_Report.select().where(Daily_Regional_Report.Date == most_recent_regional).dicts()
 df_regional = pd.DataFrame(regional_data).drop(columns=['id', 'Date'])
 df_regional = df_regional.iloc[0]
 df_regional = df_regional.sort_values()

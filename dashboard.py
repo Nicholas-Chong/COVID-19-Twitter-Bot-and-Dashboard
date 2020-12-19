@@ -115,7 +115,7 @@ fig8 = (
         x=0,
         y=df_regional.index.tolist(),
         orientation='h',
-        title=f'New Case Regional Breakdown [{str(df["Date"].max())}]',
+        title=f'New Case Regional Breakdown [{str(most_recent_regional)}]',
         labels={
             '0': 'New Cases',
             'y': 'Reporting PHU'
