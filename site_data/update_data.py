@@ -106,8 +106,10 @@ def regional_update():
         key=sort_function, 
         reverse=True
     )
+
+    most_recent_record = Daily_Regional_Report.select().order_by(Daily_Report.id.desc()).get().date
     
-    if str(sorted_query[0]['Date']) != str(datetime.datetime.today().date()):
+    if str(sorted_query[0]['Date']) != str(most_recent_record + datetime.timedelta(days=1)):
         return logging.error('Todays record was not found. Unable to complete daily update.')
 
     Daily_Regional_Report.create(
