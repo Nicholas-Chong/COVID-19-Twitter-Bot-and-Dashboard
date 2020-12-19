@@ -8,7 +8,7 @@ Created:     2020-06-24 (YYYY/MM/DD)
 
 import logging
 
-logging.basicConfig(filename='application.log', level=logging.DEBUG, format='%(asctime)s %(levelname)s | %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
+logging.basicConfig(filename='application.txt', level=logging.DEBUG, format='%(asctime)s %(levelname)s | %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p')
 
 import twitter.bot as tb
 import site_data.update_data as ud
