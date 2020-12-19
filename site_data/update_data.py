@@ -42,7 +42,10 @@ def update():
     )
 
     # Isolate today's record and print
-    report = sorted_query[0]
+    try:
+        report = sorted_query[0]
+    except:
+        return logging.error('Todays record was not found. Unable to complete daily update.')
 
     # Get required data, format and store in variables
     date = (
@@ -52,7 +55,7 @@ def update():
     )
 
     if str(todaysdate) != str(date):
-        return logging.error('Dataset has not been updated. Unable to complete daily update')
+        return logging.error('Todays record was not found. Unable to complete daily update.')
 
     net_new_tests = report['Total tests completed in the last day']
     total_cases = report['Total Cases']
@@ -105,7 +108,7 @@ def regional_update():
     )
     
     if str(sorted_query[0]['Date']) != str(datetime.datetime.today().date()):
-        return logging.error('Dataset has not been updated. Unable to complete daily update')
+        return logging.error('Todays record was not found. Unable to complete daily update.')
 
     Daily_Regional_Report.create(
         Date = sorted_query[0]['Date'],
