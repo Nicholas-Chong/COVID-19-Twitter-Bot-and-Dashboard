@@ -43,7 +43,7 @@ def update():
 
     # Isolate today's record and print
     try:
-        report = sorted_query[0]
+        report = todays_record
     except:
         return logging.error('Todays record was not found. Unable to complete daily update.')
 
@@ -107,47 +107,49 @@ def regional_update():
         reverse=True
     )
 
-    most_recent_record = Daily_Regional_Report.select().order_by(Daily_Report.id.desc()).get().date
+    most_recent_record = Daily_Regional_Report.select().order_by(Daily_Regional_Report.Date.desc()).get().Date
     
-    if str(sorted_query[0]['Date']) != str(most_recent_record + datetime.timedelta(days=1)):
+    if datetime.datetime.strptime(sorted_query[0]['Date'][0:10], "%Y-%m-%d").date() != most_recent_record + datetime.timedelta(days=1):
         return logging.error('Todays record was not found. Unable to complete daily update.')
 
+    todays_record = sorted_query[1]
+
     Daily_Regional_Report.create(
-        Date = sorted_query[0]['Date'],
-        Algoma_Public_Health_Unit = sorted_query[0]['Algoma_Public_Health_Unit'],
-        Brant_County_Health_Unit = sorted_query[0]['Brant_County_Health_Unit'],
-        Chatham_Kent_Health_Unit = sorted_query[0]['Chatham-Kent_Health_Unit'],
-        Durham_Region_Health_Department = sorted_query[0]['Durham_Region_Health_Department'],
-        Eastern_Ontario_Health_Unit = sorted_query[0]['Eastern_Ontario_Health_Unit'],
-        Grey_Bruce_Health_Unit = sorted_query[0]['Grey_Bruce_Health_Unit'],
-        Haldimand_Norfolk_Health_Unit = sorted_query[0]['Haldimand-Norfolk_Health_Unit'],
-        Haliburton_Kawartha_Pine_Ridge_District_Health_Unit = sorted_query[0]['Haliburton,_Kawartha,_Pine_Ridge_District_Health_Unit'],
-        Halton_Region_Health_Department = sorted_query[0]['Halton_Region_Health_Department'],
-        Hamilton_Public_Health_Services = sorted_query[0]['Hamilton_Public_Health_Services'],
-        Hastings_and_Prince_Edward_Counties_Health_Unit = sorted_query[0]['Hastings_and_Prince_Edward_Counties_Health_Unit'],
-        Huron_Perth_District_Health_Unit = sorted_query[0]['Huron_Perth_District_Health_Unit'],
-        Kingston_Frontenac_and_Lennox_and_Addington_Public_Health = sorted_query[0]['Kingston,_Frontenac_and_Lennox_&_Addington_Public_Health'],
-        Lambton_Public_Health = sorted_query[0]['Lambton_Public_Health'],
-        Leeds_Grenville_and_Lanark_District_Health_Unit = sorted_query[0]['Leeds,_Grenville_and_Lanark_District_Health_Unit'],
-        Middlesex_London_Health_Unit = sorted_query[0]['Middlesex-London_Health_Unit'],
-        Niagara_Region_Public_Health_Department = sorted_query[0]['Niagara_Region_Public_Health_Department'],
-        North_Bay_Parry_Sound_District_Health_Unit = sorted_query[0]['North_Bay_Parry_Sound_District_Health_Unit'],
-        Northwestern_Health_Unit = sorted_query[0]['Northwestern_Health_Unit'],
-        Ottawa_Public_Health = sorted_query[0]['Ottawa_Public_Health'],
-        Peel_Public_Health = sorted_query[0]['Peel_Public_Health'],
-        Peterborough_Public_Health = sorted_query[0]['Peterborough_Public_Health'],
-        Porcupine_Health_Unit = sorted_query[0]['Porcupine_Health_Unit'],
-        Region_of_WaterlooPublic_Health = sorted_query[0]['Region_of_Waterloo,_Public_Health'],
-        Renfrew_County_and_District_Health_Unit = sorted_query[0]['Renfrew_County_and_District_Health_Unit'],
-        Simcoe_Muskoka_District_Health_Unit = sorted_query[0]['Simcoe_Muskoka_District_Health_Unit'],
-        Southwestern_Public_Health = sorted_query[0]['Southwestern_Public_Health'],
-        Sudbury_and_District_Health_Unit = sorted_query[0]['Sudbury_&_District_Health_Unit'],
-        Thunder_Bay_District_Health_Unit = sorted_query[0]['Thunder_Bay_District_Health_Unit'],
-        Timiskaming_Health_Unit = sorted_query[0]['Timiskaming_Health_Unit'],
-        Toronto_Public_Health = sorted_query[0]['Toronto_Public_Health'],
-        Wellington_Dufferin_Guelph_Public_Health = sorted_query[0]['Wellington-Dufferin-Guelph_Public_Health'],
-        Windsor_Essex_County_Health_Unit = sorted_query[0]['Windsor-Essex_County_Health_Unit'],
-        York_Region_Public_Health_Services = sorted_query[0]['York_Region_Public_Health_Services'],
+        Date = todays_record['Date'],
+        Algoma_Public_Health_Unit = todays_record['Algoma_Public_Health_Unit'],
+        Brant_County_Health_Unit = todays_record['Brant_County_Health_Unit'],
+        Chatham_Kent_Health_Unit = todays_record['Chatham-Kent_Health_Unit'],
+        Durham_Region_Health_Department = todays_record['Durham_Region_Health_Department'],
+        Eastern_Ontario_Health_Unit = todays_record['Eastern_Ontario_Health_Unit'],
+        Grey_Bruce_Health_Unit = todays_record['Grey_Bruce_Health_Unit'],
+        Haldimand_Norfolk_Health_Unit = todays_record['Haldimand-Norfolk_Health_Unit'],
+        Haliburton_Kawartha_Pine_Ridge_District_Health_Unit = todays_record['Haliburton,_Kawartha,_Pine_Ridge_District_Health_Unit'],
+        Halton_Region_Health_Department = todays_record['Halton_Region_Health_Department'],
+        Hamilton_Public_Health_Services = todays_record['Hamilton_Public_Health_Services'],
+        Hastings_and_Prince_Edward_Counties_Health_Unit = todays_record['Hastings_and_Prince_Edward_Counties_Health_Unit'],
+        Huron_Perth_District_Health_Unit = todays_record['Huron_Perth_District_Health_Unit'],
+        Kingston_Frontenac_and_Lennox_and_Addington_Public_Health = todays_record['Kingston,_Frontenac_and_Lennox_&_Addington_Public_Health'],
+        Lambton_Public_Health = todays_record['Lambton_Public_Health'],
+        Leeds_Grenville_and_Lanark_District_Health_Unit = todays_record['Leeds,_Grenville_and_Lanark_District_Health_Unit'],
+        Middlesex_London_Health_Unit = todays_record['Middlesex-London_Health_Unit'],
+        Niagara_Region_Public_Health_Department = todays_record['Niagara_Region_Public_Health_Department'],
+        North_Bay_Parry_Sound_District_Health_Unit = todays_record['North_Bay_Parry_Sound_District_Health_Unit'],
+        Northwestern_Health_Unit = todays_record['Northwestern_Health_Unit'],
+        Ottawa_Public_Health = todays_record['Ottawa_Public_Health'],
+        Peel_Public_Health = todays_record['Peel_Public_Health'],
+        Peterborough_Public_Health = todays_record['Peterborough_Public_Health'],
+        Porcupine_Health_Unit = todays_record['Porcupine_Health_Unit'],
+        Region_of_WaterlooPublic_Health = todays_record['Region_of_Waterloo,_Public_Health'],
+        Renfrew_County_and_District_Health_Unit = todays_record['Renfrew_County_and_District_Health_Unit'],
+        Simcoe_Muskoka_District_Health_Unit = todays_record['Simcoe_Muskoka_District_Health_Unit'],
+        Southwestern_Public_Health = todays_record['Southwestern_Public_Health'],
+        Sudbury_and_District_Health_Unit = todays_record['Sudbury_&_District_Health_Unit'],
+        Thunder_Bay_District_Health_Unit = todays_record['Thunder_Bay_District_Health_Unit'],
+        Timiskaming_Health_Unit = todays_record['Timiskaming_Health_Unit'],
+        Toronto_Public_Health = todays_record['Toronto_Public_Health'],
+        Wellington_Dufferin_Guelph_Public_Health = todays_record['Wellington-Dufferin-Guelph_Public_Health'],
+        Windsor_Essex_County_Health_Unit = todays_record['Windsor-Essex_County_Health_Unit'],
+        York_Region_Public_Health_Services = todays_record['York_Region_Public_Health_Services'],
     )
     
     logging.info('Regional update complete')
