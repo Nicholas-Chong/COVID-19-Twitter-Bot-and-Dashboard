@@ -43,7 +43,7 @@ def update():
 
     # Isolate today's record and print
     try:
-        report = todays_record
+        report = sorted_query[0]
     except:
         return logging.error('Todays record was not found. Unable to complete daily update.')
 
