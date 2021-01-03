@@ -70,3 +70,7 @@ df_regional = df_regional.sort_values()
 total_recovered = df.at[len(df)-1, 'Total Recovered'],
 total_deaths = df.at[len(df)-1, 'Total Deaths'],
 total_active = df.at[len(df)-1, 'Total Cases'] - total_recovered - total_deaths
+
+### VACCINATION DATA ###
+vaccination_data = Daily_Vacination.select().dicts()
+vaccination_data = pd.DataFrame(vaccination_data).drop(columns=['id'])

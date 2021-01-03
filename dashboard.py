@@ -130,11 +130,17 @@ fig8 = (
     )   
     .update_traces(textposition='outside')
 )
+fig9 = px.line(
+    data_frame=vaccination_data, x='date', y='new_doses', title='Daily New Vaccine Doses Administered'
+)
+fig10 = px.line(
+    data_frame=vaccination_data, x='date', y='total_doses', title='Total Doses Administered'
+)
 
-figs_list = [fig1, fig2, fig3, fig4, fig5, fig8]
+figs_list = [fig1, fig2, fig3, fig4, fig5, fig8, fig9, fig10]
 for i in figs_list:
     i.update_layout(
-        yaxis=dict(fixedrange=True), xaxis=dict(fixedrange=True), 
+        yaxis=dict(fixedrange=True, showgrid=False), xaxis=dict(fixedrange=True, showgrid=False), 
         showlegend=False, margin={'r': 30}, coloraxis_showscale=False, 
         transition_duration=500,
     ) 
@@ -407,6 +413,35 @@ app.layout = html.Div(
             className='two_graph_container'
         ),
         
+        html.Div(
+            [
+                html.Div(
+                    [
+                        dcc.Graph(
+                            figure=fig9, 
+                            id='graph9', 
+                            config={'displayModeBar': False,}
+                        ),
+                    ],
+
+                    className='pretty_container half_graph',
+                ),
+
+                html.Div(
+                    [
+                        dcc.Graph(
+                            figure=fig10, 
+                            id='graph10', 
+                            config={'displayModeBar': False,}
+                        ),
+                    ],
+
+                    className='pretty_container half_graph',
+                ),
+            ],
+            className='two_graph_container'
+        ),
+
         # html.Div(
         #     [
         #         dcc.Graph(
