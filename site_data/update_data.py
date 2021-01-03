@@ -153,3 +153,31 @@ def regional_update():
     )
     
     logging.info('Regional update complete')
+
+
+def vaccine_update():
+    todaysDate = datetime.datetime.today().date()
+    link = f'https://data.ontario.ca/api/3/action/datastore_search?q={str(todaysDate)}T00:00:00&resource_id=8a89caa9-511c-4568-af89-7f2174b4378c'
+    query = urllib.request.urlopen(link)
+    query = json.loads(query.read())
+
+    sort_function = (
+        lambda x: 
+        datetime.datetime.strptime(x['report_date'][0:10], "%Y-%m-%d").date()
+    )
+    sorted_query = sorted(
+        query['result']['records'], 
+        key=sort_function, 
+        reverse=True
+    )
+
+    r = sorted_query[0]
+    date = datetime.datetime.strptime(r['report_date'][0:10], "%Y-%m-%d").date()
+    new_doses = r['previous_day_doses_administered'].replace(',', '')
+    total_doses = r['total_doses_administered'].replace(',', '')
+
+    Daily_Vacination.create(
+        date=date,
+        new_doses=int(new_doses),
+        total_doses=int(total_doses)
+    )
