@@ -72,5 +72,14 @@ class Daily_Regional_Report(Model):
         database = db
 
 
+class Daily_Vacination(Model):
+    date = DateField()
+    new_doses = IntegerField(default=0)
+    total_doses = IntegerField(default=0)
+    
+    class Meta:
+        database = db
+
+
 if __name__ == '__main__':
-    db.create_tables([Daily_Regional_Report])
+    db.create_tables([Daily_Vacination])
