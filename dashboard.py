@@ -134,7 +134,7 @@ fig9 = px.line(
     data_frame=vaccination_data, x='date', y='new_doses', title='Daily New Vaccine Doses Administered'
 )
 fig10 = px.line(
-    data_frame=vaccination_data, x='date', y='total_doses', title='Total Doses Administered'
+    data_frame=vaccination_data, x='date', y='total_doses', title='Total Vaccine Doses Administered'
 )
 
 figs_list = [fig1, fig2, fig3, fig4, fig5, fig8, fig9, fig10]
