@@ -9,7 +9,7 @@ Created:     2020-06-23 (YYYY/MM/DD)
 ----------------------------------------------------------------------------'''
 
 import urllib.request
-import pprint
+from pprint import pprint
 import json
 from models import *
 import datetime
@@ -55,5 +55,29 @@ def main():
             total_deaths=total_deaths,
         )
 
+
+def importVax():
+    link = 'https://data.ontario.ca/api/3/action/datastore_search?resource_id=8a89caa9-511c-4568-af89-7f2174b4378c&limit=100'
+    query = urllib.request.urlopen(link)
+    query = json.loads(query.read())
+
+    pprint(query['result']['records'])
+
+    for r in query['result']['records']:
+        date = datetime.datetime.strptime(r['report_date'][0:10], "%Y-%m-%d").date()
+        new_doses = r['previous_day_doses_administered'].replace(',', '')
+        total_doses = r['total_doses_administered'].replace(',', '')
+
+        if new_doses == '':
+            new_doses = 0
+        
+        print(date, new_doses, total_doses)
+
+        Daily_Vacination.create(
+            date=date,
+            new_doses=int(new_doses),
+            total_doses=int(total_doses)
+        )
+
 if __name__ == '__main__':
-    main()
+    importVax()
