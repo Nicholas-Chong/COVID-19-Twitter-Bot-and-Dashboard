@@ -131,10 +131,10 @@ fig8 = (
     .update_traces(textposition='outside')
 )
 fig9 = px.line(
-    data_frame=vaccination_data, x='date', y='new_doses', title='Daily New Vaccine Doses Administered'
+    data_frame=vaccination_data, x='date', y='new_doses', title='Daily New Vaccine Doses Administered', labels={'new_doses': 'New Doses'}
 )
 fig10 = px.line(
-    data_frame=vaccination_data, x='date', y='total_doses', title='Total Vaccine Doses Administered'
+    data_frame=vaccination_data, x='date', y='total_doses', title='Total Vaccine Doses Administered', labels={'total_doses': 'Total Doses'}
 )
 
 figs_list = [fig1, fig2, fig3, fig4, fig5, fig8, fig9, fig10]
