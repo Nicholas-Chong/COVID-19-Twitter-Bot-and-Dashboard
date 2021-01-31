@@ -176,8 +176,9 @@ def vaccine_update():
     new_doses = r['previous_day_doses_administered'].replace(',', '')
     total_doses = r['total_doses_administered'].replace(',', '')
 
-    Daily_Vacination.create(
-        date=date,
-        new_doses=int(new_doses),
-        total_doses=int(total_doses)
-    )
+    if date == datetime.datetime.today().date():
+        Daily_Vacination.create(
+            date=date,
+            new_doses=int(new_doses),
+            total_doses=int(total_doses)
+        )

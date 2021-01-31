@@ -19,6 +19,7 @@ from datetime import timedelta
 def main():
     ud.update()
     ud.regional_update()
+    ud.vaccine_update()
 
     today = Daily_Report.select().order_by(Daily_Report.id.desc()).get()
     tb.main(today)
