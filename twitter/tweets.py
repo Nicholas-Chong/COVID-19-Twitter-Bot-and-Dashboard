@@ -33,7 +33,7 @@ Tests Completed: {tests_completed}
 Total Cases: {total_cases}
 #COVID19Toronto #COVID19Ontario #Coronavirus
 Like and retweet to inform others!
-http://ontariocovid-19.com
+http://www.ontariocovid-19.com
     '''
     )
 
