@@ -20,7 +20,7 @@ kiwisolver==1.2.0
 leather==0.3.3
 MarkupSafe==1.1.1
 matplotlib==3.2.1
-numpy==1.18.5
+numpy==1.22.0
 oauthlib==3.1.0
 pandas==1.0.4
 peewee==3.13.3
